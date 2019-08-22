@@ -1,0 +1,79 @@
+html, body {
+    background-color: #F0EFE7;
+}
+.background-header {
+    height: 35vh;
+    width: 100%;
+    background-image: url("/img/banner.jpg");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+}
+.content {
+    padding-top: 22vh;
+}
+.required {
+    color: #d93025
+}
+
+/* radio buttons */
+[type="radio"]:checked + span:after, 
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+    border: 2px solid rgb(135, 118, 40);
+} 
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+    background-color: rgb(135, 118, 40);
+}
+/* inputs */
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    color: rgb(135, 118, 40) !important;
+    border-bottom: 1px solid rgb(135, 118, 40);
+    -webkit-box-shadow: 0 1px 0 0 rgb(135, 118, 40);
+    box-shadow: 0 1px 0 0 rgb(135, 118, 40);
+}
+input:not([type]):focus:not([readonly])+label, 
+input[type=text]:not(.browser-default):focus:not([readonly])+label, 
+input[type=password]:not(.browser-default):focus:not([readonly])+label, 
+input[type=email]:not(.browser-default):focus:not([readonly])+label, 
+input[type=url]:not(.browser-default):focus:not([readonly])+label, 
+input[type=time]:not(.browser-default):focus:not([readonly])+label, 
+input[type=date]:not(.browser-default):focus:not([readonly])+label, 
+input[type=datetime]:not(.browser-default):focus:not([readonly])+label, 
+input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, 
+input[type=tel]:not(.browser-default):focus:not([readonly])+label, 
+input[type=number]:not(.browser-default):focus:not([readonly])+label, 
+input[type=search]:not(.browser-default):focus:not([readonly])+label, 
+textarea.materialize-textarea:focus:not([readonly])+label {
+    color: rgb(135, 118, 40) !important;
+}
+
+.card > .image-container {
+    height: 0;
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* helpers */
+.margin-top-0 {
+    margin-top: 0px; 
+}
+.margin-bottom-0 {
+    margin-bottom: 0px; 
+}

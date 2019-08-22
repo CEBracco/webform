@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flor Barrau Fotografía</title>
+    <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="background-header"></div>
+    <div class="content">
+        <div class="row">
+            <div class="col m8 offset-m2">
+                <div class="card">
+                    <div class="card-content">
+                        <h4>Nuevo Pedido</h4>
+                        <p class='required'>*Obligatorio</p>
+                        <br>
+                        <div class="row">
+                            <h6 class="col m12">Selecciona tu Producto <span class="required">*</span></h6>
+                            <% products.forEach(function(product, productIndex){ %>
+                            <div class="col m3">
+                                <div class="card">
+                                    <div class="image-container" style="background-image: url('<%= product.image %>')">
+                                    </div>
+                                </div>
+                                <p>
+                                    <label>
+                                        <input class="with-gap primary-color" name="product" type="radio" />
+                                        <span><%= product.name %></span>
+                                    </label>
+                                </p>
+                            </div>
+                            <% }); %>
+
+                        </div>
+                    </div>
+                    <div class="card-action right-align">
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn">Siguiente</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/materialize/js/materialize.min.js"></script>
+</html>

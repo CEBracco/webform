@@ -1,0 +1,30 @@
+{
+  "name": "webform",
+  "version": "1.0.0",
+  "description": "a simple product selection form",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --require dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cbracco",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-force-https": "^1.0.0",
+    "log4js": "^5.0.0",
+    "module-alias": "^2.2.1",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.15.2",
+    "sequelize-cli": "^5.5.0"
+  },
+  "_moduleAliases": {
+    "@appSrc": "./app/src",
+    "@localModules": "./modules"
+  },
+  "_moduleDirectories": [
+    "modules"
+  ]
+}
