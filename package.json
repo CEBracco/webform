@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node --require dotenv/config index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:create": "npx dotenv sequelize db:create",
+    "db:drop": "npx dotenv sequelize db:drop",
+    "db:migrate": "npx dotenv sequelize db:migrate"
   },
   "author": "cbracco",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.1.0",
+    "dotenv-cli": "^2.0.1",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "express-force-https": "^1.0.0",
