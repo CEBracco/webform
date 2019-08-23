@@ -22,16 +22,15 @@
                         <p>Podes agregar un texto personalizado y selecciona la tipografía que quieras que aparezcan en el pie de tus fotos (+$20)</p>
                         <div class="row">
                             <h6 class="col m12">Seleccioná la tipografía <span class="required">*</span></h6>
-                            <% products.forEach(function(product, productIndex){ %>
+                            <% typographies.forEach(function(typography, productIndex){ %>
                             <div class="col m3">
                                 <div class="card">
-                                    <div class="image-container" style="background-image: url('<%= product.img %>')">
-                                    </div>
+                                    <div class="image-container" style="background-image: url('<%= typography.image %>')"></div>
                                 </div>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="product" type="radio" />
-                                        <span><%= product.title %></span>
+                                        <input class="with-gap primary-color" name="typography" type="radio" />
+                                        <span><%= typography.name %></span>
                                     </label>
                                 </p>
                             </div>
