@@ -1,4 +1,14 @@
-global.server.app.get(['/background'], function (req, res) {
-    res.render("background", { products: [{ title: 'holaa', img: 'https://i.kym-cdn.com/entries/icons/original/000/016/546/hidethepainharold.jpg' }, { title: 'holaa2', img: 'https://fsmedia.imgix.net/43/e9/9e/ac/0c64/4d0e/a2bc/dda1d61a31db/on-fire.jpeg' }] });
-    res.end();
+const db = global.db;
+
+global.server.app.get(['/background/:orderId'], function (req, res) {
+    var orderId = req.params.orderId;
+    db.Order.findOne({ where: { hash: orderId } }).then(order => {
+        if (!order) {
+            res.redirect('/');
+        }
+        db.Variation.findAll({ where: { type: 'background' } }).then(backgrounds => {
+            res.render("background", { backgrounds: backgrounds, order: order });
+            res.end();
+        })
+    });
 });

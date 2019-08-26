@@ -22,14 +22,15 @@
                         <p>Podes agregar un texto personalizado y selecciona la tipografía que quieras que aparezcan en el pie de tus fotos (+$20)</p>
                         <div class="row">
                             <h6 class="col m12">Seleccioná la tipografía <span class="required">*</span></h6>
-                            <% typographies.forEach(function(typography, productIndex){ %>
+                            <% typographies.forEach(function(typography, typographyIndex){ %>
                             <div class="col m3">
                                 <div class="card">
                                     <div class="image-container" style="background-image: url('<%= typography.image %>')"></div>
                                 </div>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="typography" type="radio" />
+                                        <input class="with-gap primary-color" name="typography" type="radio" value="<%= typography.id %>" 
+                                        <% if(order && order.Text && order.Text.TypographyId == typography.id ) { %>checked<% } %> />
                                         <span><%= typography.name %></span>
                                     </label>
                                 </p>
@@ -40,20 +41,30 @@
                             <h6 class="col m12">Tu texto</h6>
                             <p class="col m12">El texto que se va a mostrar en las fotos (máximo 30 caracteres)</p>
                             <div class="input-field col m6">
-                                <input placeholder="Texto" id="photoText" type="text" class="validate">
+                                <input placeholder="Texto" id="photoText" type="text" class="validate"
+                                <% if(order && order.Text && order.Text.value ) { %>value="<%= order.Text.value %>"<% } %>>
                                 <label for="photoText">Tu texto</label>
                             </div>
                         </div>
                     </div>
                     <div class="card-action right-align">
                         <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/services/orderService.js"></script>
+<script>
+<% if (order) { %> 
+    var orderId = "<%= order.hash %>";
+<% } else { %>
+    var orderId = 'default';
+<% } %>
+</script>
+<script src="/js/typography.js"></script>
 </html>

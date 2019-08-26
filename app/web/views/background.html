@@ -22,16 +22,17 @@
                         <p>Fondos con diseños pesonalizados para tus fotos ❤ (+$20)</p>
                         <div class="row">
                             <h6 class="col m12">Seleccioná el fondo que mas te guste! <span class="required">*</span></h6>
-                            <% products.forEach(function(product, productIndex){ %>
+                            <% backgrounds.forEach(function(background, backgroundIndex){ %>
                             <div class="col m3">
                                 <div class="card">
-                                    <div class="image-container" style="background-image: url('<%= product.img %>')">
+                                    <div class="image-container" style="background-image: url('<%= background.image %>')">
                                     </div>
                                 </div>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="product" type="radio" />
-                                        <span><%= product.title %></span>
+                                        <input class="with-gap primary-color" name="background" type="radio" value="<%= background.id %>" 
+                                        <% if(order && order.BackgroundId == background.id ) { %>checked<% } %> />
+                                        <span><%= background.name %></span>
                                     </label>
                                 </p>
                             </div>
@@ -40,13 +41,22 @@
                     </div>
                     <div class="card-action right-align">
                         <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/services/orderService.js"></script>
+<script>
+<% if (order) { %> 
+    var orderId = "<%= order.hash %>";
+<% } else { %>
+    var orderId = 'default';
+<% } %>
+</script>
+<script src="/js/background.js"></script>
 </html>

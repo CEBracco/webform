@@ -28,23 +28,32 @@
                                 </div>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="product" type="radio" />
+                                        <input class="with-gap primary-color" name="product" type="radio" value="<%= product.id %>" 
+                                        <% if(order && order.ProductId == product.id ) { %>checked<% } %> />
                                         <span><%= product.name %></span>
                                     </label>
                                 </p>
                             </div>
                             <% }); %>
-
                         </div>
                     </div>
                     <div class="card-action right-align">
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/services/orderService.js"></script>
+<script>
+<% if (order) { %> 
+    var orderId = "<%= order.hash %>";
+<% } else { %>
+    var orderId = 'default';
+<% } %>
+</script>
+<script src="/js/product.js"></script>
 </html>

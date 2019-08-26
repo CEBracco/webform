@@ -1,9 +1,14 @@
-const sequelize = global.dbConnection;
-const Product = sequelize.import('../db/models/product');
+const db = global.db;
 
-global.server.app.get(['/', '/index.html'], function (req, res) {
-    Product.findAll().then(products => {
-        res.render("index", { products: products });
-        res.end();
+global.server.app.get(['/', '/index.html','/:orderId', '/index.html/:orderId'], function (req, res) {
+    var orderId = req.params.orderId;
+    if (!orderId) {
+        orderId = 'default'
+    }
+    db.Product.findAll().then(products => {
+        db.Order.findOne({ where: { hash: orderId } }).then(order => {
+            res.render("index", { products: products, order: order });
+            res.end();
+        });
     })
 });
