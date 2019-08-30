@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Flor Barrau Fotografía</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -25,29 +26,33 @@
                         <div class="row">
                             <div class="input-field col m6 margin-top-0">
                                 <h6 class="margin-bottom-0">Nombre<span class="required">*</span></h6>
-                                <input placeholder="Juan" type="text" class="validate">
+                                <input name="name" placeholder="Juan" type="text" class="validate"
+                                <% if(order.name) { %>value="<%= order.name %>"<% } %> required>
                             </div>
                             <div class="input-field col m6 margin-top-0">
                                 <h6 class="margin-bottom-0">Apellido<span class="required">*</span></h6>
-                                <input placeholder="Pérez" type="text" class="validate">
+                                <input name="surname" placeholder="Pérez" type="text" class="validate"
+                                <% if(order.surname) { %>value="<%= order.surname %>"<% } %> required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col m6 margin-top-0">
                                 <h6 class="margin-bottom-0">Nro. de Teléfono Celular<span class="required">*</span></h6>
                                 <small>Lo usaremos para ponernos en contacto con vos, si tenes WhatsApp mejor!</small>
-                                <input placeholder="1144556677" type="text" class="validate">
+                                <input name="cellphone" placeholder="1144556677" type="text" class="validate"
+                                <% if(order.cellphone) { %>value="<%= order.cellphone %>"<% } %> required>
                             </div>
                             <div class="input-field col m6 margin-top-0">
                                 <h6 class="margin-bottom-0">Usuario de Instagram (opcional)</h6>
                                 <small>También podemos avisarte por este medio si querés</small>
-                                <input placeholder="@jperez" type="text" class="validate">
+                                <input name="instagramUser" placeholder="@jperez" type="text" class="validate"
+                                <% if(order.instagramUser) { %>value="<%= order.instagramUser %>"<% } %>>
                             </div>
                         </div>
                     </div>
                     <div class="card-action right-align">
                         <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
                     </div>
                 </div>
             </div>
@@ -56,4 +61,15 @@
 </body>
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/services/orderService.js"></script>
+<% if (order) { %> 
+<script>
+    var orderId = "<%= order.hash %>";
+</script>
+<% } else { %>
+<script>
+    var orderId = 'default';
+</script>
+<% } %>
+<script src="/js/customerInfo.js"></script>
 </html>

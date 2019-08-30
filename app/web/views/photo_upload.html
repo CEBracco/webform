@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flor Barrau Fotografía</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/lib/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="background-header"></div>
+    <div class="content">
+        <div class="row">
+            <div class="col s12 col m8 offset-m2">
+                <div class="card">
+                    <div class="card-content">
+                        <h4>Nuevo Pedido</h4>
+                        <p class='required'>*Obligatorio</p>
+                        <br>
+                        <h5>Subí tus fotos!</h5>
+                        <!-- <p>Fondos con diseños pesonalizados para tus fotos ❤ (+$20)</p> -->
+                        <!-- <div class="row">
+                            <h6 class="col m12">Seleccioná el fondo que mas te guste! <span class="required">*</span>
+                            </h6>
+                        </div> -->
+
+                        <div class="fullscreen-container">
+                            <button class="btn btn-primary waves-effect waves-light upload-button right"><i
+                                    class="material-icons left">add_circle</i>Cargar Fotos</button>
+                            <button class="btn btn-flat waves-effect waves-light clear-button right">Limpiar</button>
+                            <div class="file-uploader">
+                                <div class="empty-files-alert" <% if(photos.length > 0) { %>style="display:none"<% } %>>
+                                    <h6 class="message">Todavía no cargaste ninguna foto, para hacerlo hacé click en el botón "Cargar fotos" o arrastrá
+                                        tus archivos sobre esta ventana.</h6>
+                                </div>
+                                <div class="row file-list-container" <% if(photos.length == 0) { %>style="display:none"<% } %>>
+                                    <div class="col s12">
+                                        <h6 class="title">Archivos Subidos</h6>
+                                        <div class="progress grey lighten-4">
+                                            <div class="determinate"></div>
+                                        </div>
+                                        <ul class="collection file-list">
+                                            <% photos.forEach(function(photo, photoIndex){ %>
+                                            <li class="collection-item avatar saved" data-photo="<%= photo %>">
+                                                <img class="circle" src="/photos/<%= order.hash %>/<%= photo %>">
+                                                <span class="title"><span><%= photo %></span></span>
+                                                <p class="details"></p>
+                                                <a class="secondary-content" href="#"><i class="material-icons" onclick="onDeletePhotoButton(this)">clear</i></a>
+                                            </li>
+                                            <% }) %>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-action right-align">
+                        <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn confirm-upload">Siguiente</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/lib/dropzone/dropzone.js"></script>
+<script src="/js/services/orderService.js"></script>
+<script>
+    var photoCounter = <%= photos.length %>;
+</script>
+<% if (order) { %> 
+<script>
+    var orderId = "<%= order.hash %>";
+</script>
+<% } else { %>
+<script>
+    var orderId = 'default';
+</script>
+<% } %>
+<script src="/js/photoUpload.js"></script>
+</html>

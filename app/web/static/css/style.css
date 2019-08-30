@@ -16,6 +16,15 @@ html, body {
     color: #d93025
 }
 
+/* buttons */
+.btn.btn-primary {
+    background-color: rgb(135, 118, 40);
+}
+
+.btn.btn-primary:hover {
+    background-color: rgb(155, 138, 60);
+}
+
 /* radio buttons */
 [type="radio"]:checked + span:after, 
 [type="radio"].with-gap:checked + span:before,
@@ -61,6 +70,10 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     color: rgb(135, 118, 40) !important;
 }
 
+.progress .determinate {
+    background-color: rgb(135, 118, 40) !important;
+}
+
 .card > .image-container {
     height: 0;
     width: 100%;
@@ -76,4 +89,79 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 }
 .margin-bottom-0 {
     margin-bottom: 0px; 
+}
+
+/* photo upload */
+.fullscreen-container {
+    min-height: 30vh;
+    width: 100%;
+}
+.file-list-container{
+    /* display: none; */
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.file-uploader {
+    padding: 5px;
+    height: 30vh;
+    width: 100%;
+    border-radius: 8px;
+    transition: 0.3s;
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.file-uploader .progress{
+    display: none;
+}
+.file-uploader .collection:empty {
+    /* display: none; */
+}
+.empty-files-alert {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    padding-top: 10vh;
+}
+
+.file-uploader.dragging {
+    border: 2px dashed rgba(100,100,100,0.30);
+    background-color: #e0e0e0;
+}
+.file-uploader .collection {
+    border-color: #e0e0e0;
+}
+.file-uploader .collection>.collection-item {
+    background-color: #f5f5f5;
+    border-color: #e0e0e0;
+}
+.file-uploader .collection>.collection-item .title {
+    color: #212121;
+}
+.file-uploader .collection>.collection-item .details {
+    color: #9e9e9e;
+}
+.file-uploader .collection>.collection-item .secondary-content {
+    color: #757575;
+}
+.file-uploader .collection>.collection-item .secondary-content:hover {
+    color: #b1b1b1;
+}
+.empty-files-alert .message {
+    color: rgba(0,0,0,.50);
+}
+.clear-button{
+    color: rgba(0,0,0,.80);
+}
+.clear-button:hover{
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+/*Animations*/
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

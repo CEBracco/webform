@@ -11,6 +11,7 @@ function loadControllers() {
     require('@appSrc/controllers/backgroundController');
     require('@appSrc/controllers/customerInfoController');
     require('@appSrc/controllers/orderController');
+    require('@appSrc/controllers/photoUploadController');
 }
 
 connectToDB();

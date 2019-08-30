@@ -10,7 +10,7 @@ global.server.app.post(prefix + '/create', function (req, res) {
     }
     db.Order.findOne({ where: { hash: req.body.orderId } }).then(order => {
         if(!order){
-            order = db.Order.build();
+            order = db.Order.build({ completed: false });
         }
         db.Product.findByPk(parseInt(req.body.productId)).then(product => {
             order.save().then(persistedOrder => {
@@ -35,17 +35,25 @@ global.server.app.post(prefix + '/setTypography', function (req, res) {
         res.end();
     }
     if (req.body.typographyId) {
-        console.log(req.body.textValue);
-        db.Order.findOne({ where: { hash: req.body.orderId } }).then(order => {
-            db.Text.create({ value: req.body.textValue }).then(text => {
-                db.Variation.findByPk(parseInt(req.body.typographyId)).then(typography => {
-                    text.setTypography(typography).then(textPersisted => {
-                        order.setText(textPersisted).then(() => {
+        db.Order.findOne({ where: { hash: req.body.orderId }, include: [db.Text] }).then(order => {
+            db.Variation.findByPk(parseInt(req.body.typographyId)).then(typography => {
+                if(order.Text) {
+                    order.Text.update({ value: req.body.textValue }).then(text => {
+                        text.setTypography(typography).then(textPersisted => {
                             res.send(APIResponse.ok());
                             res.end();
-                        });
+                        })
                     })
-                });
+                } else {
+                    db.Text.create({ value: req.body.textValue }).then(text => {
+                        text.setTypography(typography).then(textPersisted => {
+                            order.setText(textPersisted).then(() => {
+                                res.send(APIResponse.ok());
+                                res.end();
+                            });
+                        })
+                    });
+                }
             })
         })
     } else {
@@ -73,3 +81,29 @@ global.server.app.post(prefix + '/setBackground', function (req, res) {
         res.end();
     }
 });
+
+
+global.server.app.post(prefix + '/setCustomerInfo', function (req, res) {
+    if (!req.body.orderId || !validCustomerInfo(req.body)) {
+        res.send(APIResponse.error(null, 'Debes completar todos los datos obligatorios!'));
+        res.end();
+    }
+    db.Order.findOne({ where: { hash: req.body.orderId } }).then(order => {
+        order.update({ 
+            name: req.body.name,
+            surname: req.body.surname,
+            cellphone: req.body.cellphone,
+            instagramUser: req.body.instagramUser,
+            completed: true
+        }).then(() => {
+            res.send(APIResponse.ok());
+            res.end();
+        });
+    })
+});
+
+function validCustomerInfo(data) {
+    return (data.name != null && data.name.trim() != '') 
+        && (data.surname != null && data.surname.trim() != '')
+        && (data.cellphone != null && data.cellphone.trim() != '')
+}
