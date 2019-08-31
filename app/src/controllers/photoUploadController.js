@@ -7,7 +7,7 @@ const APIResponse = require('@appSrc/utils/apiResponse');
 
 global.server.app.get(['/photo_upload/:orderId'], function (req, res) {
     var orderId = req.params.orderId;
-    db.Order.findOne({ where: { hash: orderId } }).then(order => {
+    db.Order.findOne({ where: { hash: orderId }, include: [db.Product] }).then(order => {
         if (!order) {
             res.redirect('/');
         }
@@ -24,7 +24,6 @@ function getUploadedPhotos(orderId) {
     fs.readdirSync(orderPhotoDir).forEach(file => {
         photos.push(file);
     });
-    console.log(photos);
     return photos;
 }
 
@@ -62,7 +61,7 @@ global.server.app.post(['/photo_upload/:orderId/upload'], function (req, res) {
         res.end();
     }
     let photo = req.files.photo;
-    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${photo.name}`);
+    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${photo.name}-${Date.now()}`);
     
     mkdirp(path.join(config.get('PHOTO_UPLOAD_PATH'), orderId), function (err) {
         if (err) {

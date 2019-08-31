@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flor Barrau Fotografía</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="background-header"></div>
+    <div class="content">
+        <div class="row">
+            <div class="col s12 col m8 offset-m2">
+                <div class="card">
+                    <div class="card-content">
+                        <h5>Ya casi es tuyo!</h5>
+                        <p>Revisá que este todo en orden</p>
+                        <div class="detail-image-container hide-on-med-and-up" style="background-image: url('<%= order.Product.image %>')"></div>
+                        <div class="detail-image-container medium hide-on-large-only hide-on-small-only" style="background-image: url('<%= order.Product.image %>')"></div>
+                        <div class="detail-image-container large hide-on-med-and-down" style="background-image: url('<%= order.Product.image %>')"></div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5 class="center-align margin-bottom-0"><%= order.Product.name %></h5>
+                                <p class="center-align">$<%= order.Product.price %></p>
+                            </div>
+                        </div>
+                        <div class="row file-uploader margin-bottom-0">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <img class="circle responsive-img" src="<%= order.Background.image %>">
+                                    <span class="title"><span>Fondo</span></span>
+                                    <p class="details"><span><%= order.Background.name %></span></p>
+                                    <a class="secondary-content" href="#">$<%= order.Background.price %></a>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <img class="circle responsive-img" src="<%= order.Text.Typography.image %>">
+                                    <span class="title"><span>Fondo</span></span>
+                                    <p class="details"><span><%= order.Text.Typography.name %></span></p>
+                                    <span class="secondary-content">$<%= order.Text.Typography.price %></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="center-align">Total $<%= order.Product.price + order.Background.price + order.Text.Typography.price %></h5>
+                        <br>
+                        <div class="row">
+                            <div class="col s12">
+                                <h6>Seleccioná la Forma de entrega</h6>
+                                <p>
+                                    <label>
+                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="deliveryPoint">
+                                        <span>Lo retiro en un punto de entrega (Constitucion, Quilmes, Berazategui, La Plata)</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="shipping">
+                                        <span>Envío a través de MercadoEnvíos</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h6>Seleccioná el método de pago</h6>
+                                <p>
+                                    <label>
+                                        <input class="with-gap primary-color" name="paymentMethod" type="radio" value="cash">
+                                        <span>Efectivo</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap primary-color" name="paymentMethod" type="radio" value="mercadopago">
+                                        <span>MercadoPago (Tarjeta de crédito/Debito)</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="required">Al pulsar finalizar seras redirigid@ al portal de MercadoPago para realizar tu pago y/o configurar tu envío.</p>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="card-action right-align">
+                        <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
+                        <a class="waves-effect waves-light-3 btn btn-primary btn-next">Finalizar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/services/orderService.js"></script>
+<% if (order) { %>
+<script>
+    var orderId = "<%= order.hash %>";
+</script>
+<% } else { %>
+<script>
+    var orderId = 'default';
+</script>
+<% } %>
+<script src="/js/detail.js"></script>
+
+</html>

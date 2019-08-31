@@ -30,9 +30,22 @@
                         </div> -->
 
                         <div class="fullscreen-container">
-                            <button class="btn btn-primary waves-effect waves-light upload-button right"><i
-                                    class="material-icons left">add_circle</i>Cargar Fotos</button>
-                            <button class="btn btn-flat waves-effect waves-light clear-button right">Limpiar</button>
+                            <!-- mobile -->
+                            <div class="row hide-on-med-and-up margin-bottom-0">
+                                <div class="col s6">
+                                    <button class="btn btn-flat waves-effect waves-light clear-button mobile">Limpiar</button>
+                                </div>
+                                <div class="col s6">
+                                    <button class="btn btn-primary waves-effect waves-light upload-button">
+                                        <i class="material-icons left">add_circle</i>Cargar Fotos</button>
+                                </div>
+                            </div>
+                            <!-- desktop -->
+                            <div class="hide-on-small-only">
+                                <button class="btn btn-primary waves-effect waves-light upload-button right"><i
+                                        class="material-icons left">add_circle</i>Cargar Fotos</button>
+                                <button class="btn btn-flat waves-effect waves-light clear-button right">Limpiar</button>
+                            </div>
                             <div class="file-uploader">
                                 <div class="empty-files-alert" <% if(photos.length > 0) { %>style="display:none"<% } %>>
                                     <h6 class="message">Todavía no cargaste ninguna foto, para hacerlo hacé click en el botón "Cargar fotos" o arrastrá
@@ -41,14 +54,15 @@
                                 <div class="row file-list-container" <% if(photos.length == 0) { %>style="display:none"<% } %>>
                                     <div class="col s12">
                                         <h6 class="title">Archivos Subidos</h6>
+                                        <p class="upload-counter"></p>
                                         <div class="progress grey lighten-4">
                                             <div class="determinate"></div>
                                         </div>
                                         <ul class="collection file-list">
                                             <% photos.forEach(function(photo, photoIndex){ %>
-                                            <li class="collection-item avatar saved" data-photo="<%= photo %>">
-                                                <img class="circle" src="/photos/<%= order.hash %>/<%= photo %>">
-                                                <span class="title"><span><%= photo %></span></span>
+                                            <li class="collection-item avatar photo-item saved" data-photo="<%= photo %>">
+                                                <img class="circle responsive-img" src="/photos/<%= order.hash %>/<%= photo %>">
+                                                <span class="title"><span><%= photo.replace(/-[0-9]*$/g, '') %></span></span>
                                                 <p class="details"></p>
                                                 <a class="secondary-content" href="#"><i class="material-icons" onclick="onDeletePhotoButton(this)">clear</i></a>
                                             </li>
@@ -62,7 +76,7 @@
                     </div>
                     <div class="card-action right-align">
                         <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn confirm-upload">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn confirm-upload disabled">Siguiente</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +88,7 @@
 <script src="/lib/dropzone/dropzone.js"></script>
 <script src="/js/services/orderService.js"></script>
 <script>
-    var photoCounter = <%= photos.length %>;
+    var acceptedPhotos = <%= order.Product.acceptedPhotos %>;
 </script>
 <% if (order) { %> 
 <script>

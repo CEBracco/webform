@@ -13,16 +13,16 @@
     <div class="background-header"></div>
     <div class="content">
         <div class="row">
-            <div class="col m8 offset-m2">
+            <div class="col s12 col m8 offset-m2">
                 <div class="card">
                     <div class="card-content">
                         <h4>Nuevo Pedido</h4>
                         <p class='required'>*Obligatorio</p>
                         <br>
+                        <h6>Selecciona tu Producto <span class="required">*</span></h6>
                         <div class="row">
-                            <h6 class="col m12">Selecciona tu Producto <span class="required">*</span></h6>
                             <% products.forEach(function(product, productIndex){ %>
-                            <div class="col m3">
+                            <div class="col s6 m3">
                                 <div class="card">
                                     <div class="image-container" style="background-image: url('<%= product.image %>')">
                                     </div>
@@ -30,7 +30,7 @@
                                 <p>
                                     <label>
                                         <input class="with-gap primary-color" name="product" type="radio" value="<%= product.id %>" 
-                                        <% if(order && order.ProductId == product.id ) { %>checked<% } %> />
+                                        <% if(order && order.ProductId == product.id ) { %>checked <% } %>/>
                                         <span><%= product.name %></span>
                                     </label>
                                 </p>

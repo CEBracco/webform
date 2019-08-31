@@ -93,8 +93,7 @@ global.server.app.post(prefix + '/setCustomerInfo', function (req, res) {
             name: req.body.name,
             surname: req.body.surname,
             cellphone: req.body.cellphone,
-            instagramUser: req.body.instagramUser,
-            completed: true
+            instagramUser: req.body.instagramUser
         }).then(() => {
             res.send(APIResponse.ok());
             res.end();
@@ -107,3 +106,20 @@ function validCustomerInfo(data) {
         && (data.surname != null && data.surname.trim() != '')
         && (data.cellphone != null && data.cellphone.trim() != '')
 }
+
+global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
+    if (!req.body.orderId || !req.body.deliveryMethod || !req.body.paymentMethod) {
+        res.send(APIResponse.error());
+        res.end();
+    }
+    db.Order.findOne({ where: { hash: req.body.orderId } }).then(order => {
+        order.update({
+            deliveryMethod: req.body.name,
+            paymentMethod: req.body.surname,
+            completed: true
+        }).then(() => {
+            res.send(APIResponse.ok());
+            res.end();
+        });
+    })
+});
