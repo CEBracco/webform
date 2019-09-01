@@ -3,7 +3,7 @@ $(document).ready(function () {
         var typographyId = $("input[name='typography']:checked").val();
         var textValue = $('#photoText').val();
         OrderService.setTypography({ orderId: orderId, typographyId: typographyId, textValue: textValue }, function (res) {
-            console.log(res);
+            window.location.href = "/photo_upload/" + orderId;
         })
     });
 });

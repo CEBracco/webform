@@ -9,7 +9,7 @@ $(document).ready(function () {
         }
         if (validCustomerInfo(data)) {
             OrderService.setCustomerInfo(data, function (res) {
-                console.log(res);
+                window.location.href = "/detail/" + orderId;
             })
         } else {
             console.log('lala')

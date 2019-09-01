@@ -13,6 +13,7 @@ function loadControllers() {
     require('@appSrc/controllers/orderController');
     require('@appSrc/controllers/photoUploadController');
     require('@appSrc/controllers/detailController');
+    require('@appSrc/controllers/completedOrderController');
 }
 
 connectToDB();

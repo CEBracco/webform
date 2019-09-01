@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -52,13 +52,15 @@
                                 <h6>Seleccioná la Forma de entrega</h6>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="deliveryPoint">
+                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="deliveryPoint" onchange="processDeliveryMethod()"
+                                        <% if(order && order.deliveryMethod == 'deliveryPoint') { %> checked <% } %>>
                                         <span>Lo retiro en un punto de entrega (Constitucion, Quilmes, Berazategui, La Plata)</span>
                                     </label>
                                 </p>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="shipping">
+                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="shipping" onchange="processDeliveryMethod()"
+                                        <% if(order && order.deliveryMethod == 'shipping') { %> checked <% } %>>
                                         <span>Envío a través de MercadoEnvíos</span>
                                     </label>
                                 </p>
@@ -69,13 +71,15 @@
                                 <h6>Seleccioná el método de pago</h6>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="paymentMethod" type="radio" value="cash">
+                                        <input class="with-gap primary-color" name="paymentMethod" type="radio" value="cash" onchange="processPaymentMethod()"
+                                        <% if(order && order.paymentMethod == 'cash') { %> checked <% } %>>
                                         <span>Efectivo</span>
                                     </label>
                                 </p>
                                 <p>
                                     <label>
-                                        <input class="with-gap primary-color" name="paymentMethod" type="radio" value="mercadopago">
+                                        <input class="with-gap primary-color" name="paymentMethod" type="radio" value="mercadopago" onchange="processPaymentMethod()"
+                                        <% if(order && order.paymentMethod == 'mercadopago') { %> checked <% } %>>
                                         <span>MercadoPago (Tarjeta de crédito/Debito)</span>
                                     </label>
                                 </p>
@@ -83,7 +87,7 @@
                         </div>
                         <div class="row">
                             <div class="col s12">
-                                <p class="required">Al pulsar finalizar seras redirigid@ al portal de MercadoPago para realizar tu pago y/o configurar tu envío.</p>
+                                <p class="mercadopago-alert required" <% if(order && order.paymentMethod != 'mercadopago') { %> style="display: none" <% } %>>Al pulsar finalizar seras redirigid@ al portal de MercadoPago para realizar tu pago y/o configurar tu envío.</p>
                             </div>                            
                         </div>
                     </div>

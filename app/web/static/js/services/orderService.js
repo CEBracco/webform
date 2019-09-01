@@ -38,5 +38,13 @@ var OrderService = {
             data: '',
             type: 'DELETE'
         }).done(success);
+    },
+    setDeliveryAndPayment: function (data, success) {
+        $.ajax({
+            url: '/order/setDeliveryAndPayment',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            type: 'POST'
+        }).done(success);
     }
 }

@@ -112,14 +112,39 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
         res.send(APIResponse.error());
         res.end();
     }
-    db.Order.findOne({ where: { hash: req.body.orderId } }).then(order => {
+    db.Order.findOne({
+        where: { hash: req.body.orderId }, include: [
+            db.Product,
+            { model: db.Text, include: [{ model: db.Variation, as: 'Typography' }] },
+            { model: db.Variation, as: 'Background' }
+    ] }).then(order => {
         order.update({
-            deliveryMethod: req.body.name,
-            paymentMethod: req.body.surname,
+            deliveryMethod: req.body.deliveryMethod,
+            paymentMethod: req.body.paymentMethod,
             completed: true
         }).then(() => {
-            res.send(APIResponse.ok());
+            res.send(APIResponse.ok({ completeUrl: getCompleteUrl(order) }));
             res.end();
         });
     })
 });
+
+function getCompleteUrl(order) {
+    var paymentLink = '/order/completed';
+    if (order.deliveryMethod == 'shipping' || order.paymentMethod == 'mercadopago') {
+        var paymentLinks = order.Product.paymentLink.split(",");
+        if (order.Text.Typography.price > 0 && order.Background.price > 0) {
+            paymentLink = paymentLinks[2];
+        } else {
+            if (order.Text.Typography.price > 0 || order.Background.price > 0) {
+                paymentLink = paymentLinks[1];
+            } else {
+                paymentLink = paymentLinks[0];            
+            }
+        }
+        if (!paymentLink && paymentLinks[0]) {
+            paymentLink = paymentLinks[0];
+        }
+    }
+    return paymentLink
+}
