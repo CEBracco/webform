@@ -23,17 +23,19 @@
                         <div class="row">
                             <% products.forEach(function(product, productIndex){ %>
                             <div class="col s6 m3">
-                                <div class="card">
-                                    <div class="image-container" style="background-image: url('<%= product.image %>')">
+                                <div class="selectable-item">
+                                    <div class="card">
+                                        <div class="image-container" style="background-image: url('<%= product.image %>')">
+                                        </div>
                                     </div>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap primary-color" name="product" type="radio" value="<%= product.id %>" 
+                                            <% if(order && order.ProductId == product.id ) { %>checked <% } %>/>
+                                            <span><%= product.name %></span>
+                                        </label>
+                                    </p>
                                 </div>
-                                <p>
-                                    <label>
-                                        <input class="with-gap primary-color" name="product" type="radio" value="<%= product.id %>" 
-                                        <% if(order && order.ProductId == product.id ) { %>checked <% } %>/>
-                                        <span><%= product.name %></span>
-                                    </label>
-                                </p>
                             </div>
                             <% }); %>
                         </div>
@@ -48,6 +50,7 @@
 </body>
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/base.js"></script>
 <script src="/js/services/orderService.js"></script>
 <% if (order) { %> 
 <script>

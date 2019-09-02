@@ -13,7 +13,7 @@
     <div class="background-header"></div>
     <div class="content">
         <div class="row">
-            <div class="col m8 offset-m2">
+            <div class="col s12 col m8 offset-m2">
                 <div class="card">
                     <div class="card-content">
                         <h4>Nuevo Pedido</h4>
@@ -21,26 +21,28 @@
                         <br>
                         <h5>Añadí color! (+$20)</h5>
                         <p>Fondos con diseños pesonalizados para tus fotos ❤ (+$20)</p>
+                        <h6>Seleccioná el fondo que mas te guste! <span class="required">*</span></h6>
                         <div class="row">
-                            <h6 class="col m12">Seleccioná el fondo que mas te guste! <span class="required">*</span></h6>
                             <% backgrounds.forEach(function(background, backgroundIndex){ %>
-                            <div class="col m3">
-                                <div class="card">
-                                    <div class="image-container" style="background-image: url('<%= background.image %>')"></div>
+                            <div class="col s6 m3">
+                                <div class="selectable-item">
+                                    <div class="card">
+                                        <div class="image-container" style="background-image: url('<%= background.image %>')"></div>
+                                    </div>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap primary-color" name="background" type="radio" value="<%= background.id %>" 
+                                            <% if(order && order.BackgroundId == background.id ) { %>checked<% } %> />
+                                            <span><%= background.name %></span>
+                                        </label>
+                                    </p>
                                 </div>
-                                <p>
-                                    <label>
-                                        <input class="with-gap primary-color" name="background" type="radio" value="<%= background.id %>" 
-                                        <% if(order && order.BackgroundId == background.id ) { %>checked<% } %> />
-                                        <span><%= background.name %></span>
-                                    </label>
-                                </p>
                             </div>
                             <% }); %>
                         </div>
                     </div>
                     <div class="card-action right-align">
-                        <a class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
+                        <a href="/<%= order.hash %>" class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
                         <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
                     </div>
                 </div>
@@ -50,6 +52,7 @@
 </body>
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/js/base.js"></script>
 <script src="/js/services/orderService.js"></script>
 <% if (order) { %>
 <script>

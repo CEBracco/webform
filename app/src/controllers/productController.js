@@ -7,7 +7,7 @@ global.server.app.get(['/', '/index.html','/:orderId', '/index.html/:orderId'], 
     }
     db.Product.findAll().then(products => {
         db.Order.findOne({ where: { hash: orderId } }).then(order => {
-            res.render("index", { products: products, order: order });
+            res.render("product", { products: products, order: order });
             res.end();
         });
     })
