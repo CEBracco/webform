@@ -13,7 +13,12 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         if (!order) {
             res.redirect('/');
         }
-        res.render("detail", { order: order });
+        res.render("detail", { order: order, dataIsValid: validPaymentAndDeliverData(order) });
         res.end();
     });
 });
+
+function validPaymentAndDeliverData(order) {
+    return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadoPago') 
+        && (order.deliveryMethod == 'deliveryPoint' || order.deliveryMethod == 'shipping')
+}

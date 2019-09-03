@@ -25,9 +25,10 @@
                         <div class="row">
                             <% typographies.forEach(function(typography, typographyIndex){ %>
                             <div class="col s6 m3">
-                                <div class="selectable-item">
+                                <div class="selectable-item <%= typography.price == 0 ? 'none' : '' %>">
                                     <div class="card">
-                                        <div class="image-container" style="background-image: url('<%= typography.image %>')"></div>
+                                        <div class="image-container <% if(order && order.Text && order.Text.TypographyId == typography.id ) { %>selected<% } %>"
+                                            style="background-image: url('<%= typography.image %>')"></div>
                                     </div>
                                     <p>
                                         <label>
@@ -41,10 +42,10 @@
                             <% }); %>
                         </div>
                         <div class="row">
-                            <h6 class="col m12">Tu texto</h6>
-                            <p class="col m12">El texto que se va a mostrar en las fotos (máximo 30 caracteres)</p>
-                            <div class="input-field col m6">
-                                <input placeholder="Texto" id="photoText" type="text" class="validate"
+                            <h6 class="col s12">Tu texto</h6>
+                            <p class="col s12">El texto que se va a mostrar en las fotos (máximo 30 caracteres)</p>
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Texto" id="photoText" type="text" class="validate" data-length="30" maxlength="30"
                                 <% if(order && order.Text && order.Text.value ) { %>value="<%= order.Text.value %>"<% } %>>
                                 <label for="photoText">Tu texto</label>
                             </div>
@@ -52,7 +53,8 @@
                     </div>
                     <div class="card-action right-align">
                         <a href="/background/<%= order.hash %>" class="waves-effect waves-light-3 black-text btn-flat">Atrás</a>
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next
+                        <% if(!order || !order.Text || !order.Text.TypographyId || !order.Text.value) { %> disabled <% } %>">Siguiente</a>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,8 @@
                             <div class="col s6 m3">
                                 <div class="selectable-item">
                                     <div class="card">
-                                        <div class="image-container" style="background-image: url('<%= product.image %>')">
+                                        <div class="image-container <% if(order && order.ProductId == product.id ) { %>selected<% } %>" 
+                                            style="background-image: url('<%= product.image %>')">
                                         </div>
                                     </div>
                                     <p>
@@ -41,7 +42,8 @@
                         </div>
                     </div>
                     <div class="card-action right-align">
-                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next">Siguiente</a>
+                        <a class="waves-effect waves-light-3 grey lighten-3 black-text btn btn-next
+                        <% if(!order || (order && !order.ProductId) ) { %> disabled <% } %>">Siguiente</a>
                     </div>
                 </div>
             </div>

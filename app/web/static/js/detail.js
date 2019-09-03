@@ -8,6 +8,22 @@ $(document).ready(function () {
             }
         })
     });
+
+    $("input[name='deliveryMethod']").change(function () {
+        if ($("input[name='paymentMethod']:checked").length > 0) {
+            $('.btn-next').removeClass('disabled');
+        } else {
+            $('.btn-next').addClass('disabled');
+        }
+    });
+
+    $("input[name='paymentMethod']").change(function () {
+        if ($("input[name='deliveryMethod']:checked").length > 0) {
+            $('.btn-next').removeClass('disabled');
+        } else {
+            $('.btn-next').addClass('disabled');
+        }
+    });
 });
 
 function processDeliveryMethod() {

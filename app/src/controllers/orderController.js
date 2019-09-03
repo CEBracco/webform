@@ -57,7 +57,7 @@ global.server.app.post(prefix + '/setTypography', function (req, res) {
             })
         })
     } else {
-        res.send(APIResponse.ok());
+        res.send(APIResponse.error());
         res.end();
     }
 });
@@ -77,7 +77,7 @@ global.server.app.post(prefix + '/setBackground', function (req, res) {
             });
         })
     } else {
-        res.send(APIResponse.ok());
+        res.send(APIResponse.error());
         res.end();
     }
 });

@@ -14,6 +14,7 @@ function loadControllers() {
     require('@appSrc/controllers/photoUploadController');
     require('@appSrc/controllers/detailController');
     require('@appSrc/controllers/completedOrderController');
+    require('@appSrc/controllers/checkoutController');
 }
 
 connectToDB();
