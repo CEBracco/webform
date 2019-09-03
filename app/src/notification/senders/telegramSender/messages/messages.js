@@ -1,4 +1,4 @@
-var config=require('../../../../config/config.js');
+var config = require('@localModules/config/Config');
 
 function newOrderNotification(order){
   return `there is a new order!!`;
