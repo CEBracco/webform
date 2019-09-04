@@ -1,6 +1,7 @@
 const APIResponse = require('@appSrc/utils/apiResponse');
 const db = global.db;
 const CryptoUtils = require('@appSrc/utils/cryptoUtils');
+const NotificationBroker = require('@appSrc/notification/notificationBroker');
 const prefix = '/order';
 
 global.server.app.post(prefix + '/create', function (req, res) {
@@ -118,12 +119,16 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
             { model: db.Text, include: [{ model: db.Variation, as: 'Typography' }] },
             { model: db.Variation, as: 'Background' }
     ] }).then(order => {
+        var sendNotification = !order.completed
         order.update({
             deliveryMethod: req.body.deliveryMethod,
             paymentMethod: req.body.paymentMethod,
             completed: true
-        }).then(() => {
-            res.send(APIResponse.ok({ completeUrl: getCompleteUrl(order) }));
+        }).then(updatedOrder => {
+            if (sendNotification){
+                NotificationBroker.sendNewOrderNotification(updatedOrder);
+            }
+            res.send(APIResponse.ok({ completeUrl: getCompleteUrl(updatedOrder) }));
             res.end();
         });
     })

@@ -17,6 +17,11 @@ function loadControllers() {
     require('@appSrc/controllers/checkoutController');
 }
 
+function loadNotificationBroker() {
+    global.notificationBroker = require('@appSrc/notification/notificationBroker');
+}
+
 connectToDB();
 loadControllers();
+loadNotificationBroker();
 global.server.start();

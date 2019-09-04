@@ -1,11 +1,10 @@
 const path = require('path');
 var config = require('@localModules/config/Config.js');
-const Logger = require('@localModules/logger/Logger.js');
+const logger = require('@localModules/logger/Logger.js');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const secure = require('express-force-https');
 
-var logger = new Logger();
 var port = config.get('PORT');
 var app = express();
 var appPath = path.dirname(require.main.filename);
@@ -21,7 +20,7 @@ app.set('view engine', 'html');
 function start() {
   port = port ? port : 3000;
   app.listen(port, function () {
-    logger.getLogger().debug("Static file server running at port => " + port);
+    logger.debug("Static file server running at port => " + port);
   });
 }
 

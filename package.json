@@ -13,6 +13,7 @@
   "author": "cbracco",
   "license": "ISC",
   "dependencies": {
+    "adm-zip": "^0.4.13",
     "dotenv": "^8.1.0",
     "dotenv-cli": "^2.0.1",
     "ejs": "^2.6.2",
@@ -25,7 +26,8 @@
     "module-alias": "^2.2.1",
     "mysql2": "^1.6.5",
     "sequelize": "^5.15.2",
-    "sequelize-cli": "^5.5.0"
+    "sequelize-cli": "^5.5.0",
+    "unirest": "^0.6.0"
   },
   "_moduleAliases": {
     "@appSrc": "./app/src",

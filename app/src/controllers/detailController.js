@@ -19,6 +19,6 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
 });
 
 function validPaymentAndDeliverData(order) {
-    return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadoPago') 
+    return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago') 
         && (order.deliveryMethod == 'deliveryPoint' || order.deliveryMethod == 'shipping')
 }

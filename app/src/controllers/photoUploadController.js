@@ -61,7 +61,7 @@ global.server.app.post(['/photo_upload/:orderId/upload'], function (req, res) {
         res.end();
     }
     let photo = req.files.photo;
-    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${photo.name}-${Date.now()}`);
+    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${Date.now()}-${photo.name}`);
     
     mkdirp(path.join(config.get('PHOTO_UPLOAD_PATH'), orderId), function (err) {
         if (err) {
