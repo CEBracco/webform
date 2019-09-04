@@ -9,7 +9,9 @@ var port = config.get('PORT');
 var app = express();
 var appPath = path.dirname(require.main.filename);
 
-app.use(secure);
+if (config.getBoolean('FORCE_HTTPS')) {
+  app.use(secure);
+}
 app.use(express.json());
 app.use(fileUpload());
 app.use('/', express.static(appPath + '/app/web/static'));
