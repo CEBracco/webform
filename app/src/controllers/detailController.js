@@ -10,13 +10,26 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
             { model: db.Variation, as: 'Background'}
         ]
     }).then(order => {
-        if (!order) {
-            res.redirect('/');
-        }
+        checkOrderAndRedirectOnFail(order, res);
         res.render("detail", { order: order, dataIsValid: validPaymentAndDeliverData(order) });
         res.end();
     });
 });
+
+function checkOrderAndRedirectOnFail(order, res) {
+    if (!order) {
+        res.redirect('/');
+    }
+    if (!order.Product) { // ultra rare
+        res.redirect(`/`);
+    }
+    if (!order.Text) {
+        res.redirect(`/typography/${order.hash}`);
+    }
+    if (!order.Background) {
+        res.redirect(`/background/${order.hash}`);
+    }
+}
 
 function validPaymentAndDeliverData(order) {
     return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago') 
