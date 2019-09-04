@@ -1,3 +1,5 @@
+var uploadInProcess = false;
+
 $(document).ready(function(){
     $(".file-uploader").dropzone({ 
         url: orderId + "/upload",
@@ -37,6 +39,7 @@ $(document).ready(function(){
                 validateUpload();
             });
             this.on("queuecomplete", function(){
+                uploadInProcess = false;
                 window.location.href = `/customer_info/${orderId}`;
             });
             this.on("processing", function(a){
@@ -61,7 +64,8 @@ $(document).ready(function(){
     });
 
     $('.confirm-upload').click(function(){
-        if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0) {
+        if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0 || uploadInProcess) {
+            uploadInProcess = true;
             $(".file-uploader")[0].dropzone.processQueue();
         } else {
             window.location.href = `/customer_info/${orderId}`;
