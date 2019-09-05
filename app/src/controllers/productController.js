@@ -1,6 +1,6 @@
 const db = global.db;
 
-global.server.app.get(['/', '/index.html','/:orderId', '/index.html/:orderId'], function (req, res) {
+global.server.app.get(['/:orderId?', '/index.html/:orderId?'], function (req, res) {
     var orderId = req.params.orderId;
     if (!orderId) {
         orderId = 'default'

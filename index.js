@@ -15,6 +15,7 @@ function loadControllers() {
     require('@appSrc/controllers/detailController');
     require('@appSrc/controllers/completedOrderController');
     require('@appSrc/controllers/checkoutController');
+    require('@appSrc/controllers/imageController');
 }
 
 function loadNotificationBroker() {
