@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Flor Barrau Fotografía</title>
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.ico"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -33,7 +34,7 @@
                                         <label>
                                             <input class="with-gap primary-color" name="product" type="radio" value="<%= product.id %>" 
                                             <% if(order && order.ProductId == product.id ) { %>checked <% } %>/>
-                                            <span><%= product.name %></span>
+                                            <span><%= product.name %> - $<%= product.price %></span>
                                         </label>
                                     </p>
                                 </div>
