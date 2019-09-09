@@ -20,6 +20,8 @@ $(window).resize(function () {
 });
 
 function setSelectableItemsHeight() {
-    var maxHeight = $(".selectable-item").sort(function (a, b) { return b.offsetHeight - a.offsetHeight })[0].offsetHeight;
-    $(".selectable-item").height(maxHeight);
+    if($(".selectable-item.fix-height").length > 0) {
+        var maxHeight = $(".selectable-item.fix-height").sort(function (a, b) { return b.offsetHeight - a.offsetHeight })[0].offsetHeight;
+        $(".selectable-item.fix-height").height(maxHeight);
+    }
 }
