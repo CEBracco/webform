@@ -16,6 +16,10 @@ html, body {
     color: #d93025;
 }
 
+.card.card-base {
+    border-top: solid 8px rgb(228, 213, 163);
+}
+
 /* buttons */
 .btn.clear-button.mobile{
     width: 100%;
