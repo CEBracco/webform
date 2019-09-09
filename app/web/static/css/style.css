@@ -73,6 +73,32 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     color: rgb(135, 118, 40) !important;
 }
 
+[type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
+    padding-left: 25px;
+    line-height: 20px;
+}
+/*
+.selectable-item {
+    height: 40vh;
+}
+
+@media screen and (min-height: 768px) {
+    .selectable-item {
+        height: 35vh;
+    }
+}
+
+@media screen and (min-height: 1024px) {
+    .selectable-item {
+        height: 25vh;
+    }
+}
+*/
+
+.selectable-item label {
+    color: #212121;
+}
+
 .progress .determinate {
     background-color: rgb(135, 118, 40) !important;
 }
@@ -113,6 +139,23 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     padding-bottom: 20%;
     margin-left: 40%;
 }
+
+.sample-image {
+    width: 40vw;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+@media screen and (min-width: 600px) {
+    .sample-image {
+        width: 18vw;
+    }
+}
+@media screen and (min-width: 992px) {
+    .sample-image {
+        width: 13vw;
+    }
+}
+
 
 /* helpers */
 .margin-top-0 {

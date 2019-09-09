@@ -22,10 +22,13 @@
                         <br>
                         <h5>Agrega texto! (+$20)</h5>
                         <p>Podes agregar un texto personalizado y selecciona la tipografía que quieras que aparezcan en el pie de tus fotos (+$20)</p>
+                        <div class="center-align">
+                            <img src="/img/typography_sample.jpg" class="sample-image">
+                        </div>
                         <h6>Seleccioná la tipografía <span class="required">*</span></h6>
                         <div class="row">
                             <% typographies.forEach(function(typography, typographyIndex){ %>
-                            <div class="col s6 m3">
+                            <div class="col s6 m4 l3">
                                 <div class="selectable-item <%= typography.price == 0 ? 'none' : '' %>">
                                     <div class="card">
                                         <div class="image-container <% if(order && order.Text && order.Text.TypographyId == typography.id ) { %>selected<% } %>"

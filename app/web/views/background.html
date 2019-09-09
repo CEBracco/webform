@@ -22,10 +22,13 @@
                         <br>
                         <h5>Añadí color! (+$20)</h5>
                         <p>Fondos con diseños pesonalizados para tus fotos ❤ (+$20)</p>
+                        <div class="center-align">
+                            <img src="/img/background_sample.jpg" class="sample-image">
+                        </div>
                         <h6>Seleccioná el fondo que mas te guste! <span class="required">*</span></h6>
                         <div class="row">
                             <% backgrounds.forEach(function(background, backgroundIndex){ %>
-                            <div class="col s6 m3">
+                            <div class="col s6 m4 l3">
                                 <div class="selectable-item">
                                     <div class="card">
                                         <div class="image-container <% if(order && order.BackgroundId == background.id ) { %>selected<% } %>" 

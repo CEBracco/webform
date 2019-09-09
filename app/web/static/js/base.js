@@ -11,4 +11,15 @@ $(document).ready(function() {
         $('.selectable-item .image-container').removeClass('selected');
         $(this).closest('.selectable-item').find(".image-container").addClass('selected');
     });
-})
+
+    setSelectableItemsHeight();
+});
+
+$(window).resize(function () {
+    setSelectableItemsHeight();
+});
+
+function setSelectableItemsHeight() {
+    var maxHeight = $(".selectable-item").sort(function (a, b) { return b.offsetHeight - a.offsetHeight })[0].offsetHeight;
+    $(".selectable-item").height(maxHeight);
+}
