@@ -31,8 +31,8 @@
                             <% backgrounds.forEach(function(background, backgroundIndex){ %>
                             <div class="col s6 m4 l3">
                                 <div class="selectable-item">
-                                    <div class="card">
-                                        <div class="image-container <% if(order && order.BackgroundId == background.id ) { %>selected<% } %>" 
+                                    <div class="card <% if(order && order.BackgroundId == background.id ) { %>selected<% } %>">
+                                        <div class="image-container" 
                                             style="background-image: url('<%= background.image %>')"></div>
                                     </div>
                                     <p>

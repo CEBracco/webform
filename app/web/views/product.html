@@ -26,8 +26,8 @@
                             <% products.forEach(function(product, productIndex){ %>
                             <div class="col s6 m4 l3">
                                 <div class="selectable-item fix-height">
-                                    <div class="card">
-                                        <div class="image-container <% if(order && order.ProductId == product.id ) { %>selected<% } %>" 
+                                    <div class="card <% if(order && order.ProductId == product.id ) { %>selected<% } %>">
+                                        <div class="image-container" 
                                             style="background-image: url('<%= product.image %>')">
                                         </div>
                                     </div>
