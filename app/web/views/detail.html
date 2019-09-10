@@ -34,13 +34,13 @@
                         <div class="row file-uploader margin-bottom-0">
                             <ul class="collection">
                                 <li class="collection-item avatar">
-                                    <img class="circle responsive-img" src="<%= order.Background.image %>">
+                                    <img class="circle responsive-img" src="<%= (order.Background.image && order.Background.image != '')? order.Background.image : '/img/default.jpg' %>">
                                     <span class="title"><span>Fondo</span></span>
                                     <p class="details"><span><%= order.Background.name %></span></p>
                                     <a class="secondary-content" href="#">$<%= order.Background.price %></a>
                                 </li>
                                 <li class="collection-item avatar">
-                                    <img class="circle responsive-img" src="<%= order.Text.Typography.image %>">
+                                    <img class="circle responsive-img" src="<%= (order.Text.Typography.image && order.Text.Typography.image != '')? order.Text.Typography.image : '/img/default.jpg' %>">
                                     <span class="title"><span>Fondo</span></span>
                                     <p class="details"><span><%= order.Text.Typography.name %></span></p>
                                     <span class="secondary-content">$<%= order.Text.Typography.price %></span>
