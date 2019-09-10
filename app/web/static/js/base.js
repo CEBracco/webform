@@ -7,9 +7,8 @@ $(document).ready(function() {
     });
 
     $(".selectable-item input[type='radio']").change(function() {
-        console.log('lala');
-        $('.selectable-item .image-container').removeClass('selected');
-        $(this).closest('.selectable-item').find(".image-container").addClass('selected');
+        $('.selectable-item .card').removeClass('selected');
+        $(this).closest('.selectable-item').find(".card").addClass('selected');
     });
 
     setSelectableItemsHeight();

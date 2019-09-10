@@ -116,7 +116,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     background-position: center;
 }
 
-.card > .image-container.selected {
+.card.selected {
     border: 2px solid rgb(135, 118, 40);
 }
 
