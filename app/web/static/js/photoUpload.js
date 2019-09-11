@@ -5,7 +5,7 @@ $(document).ready(function(){
         url: orderId + "/upload",
         acceptedFiles: "image/*",
         maxFilesize: 100,
-        parallelUploads: 50,
+        parallelUploads: 1,
         paramName: "photo",
         autoProcessQueue: false,
         clickable: ".upload-button",
@@ -41,6 +41,10 @@ $(document).ready(function(){
             this.on("queuecomplete", function(){
                 uploadInProcess = false;
                 window.location.href = `/customer_info/${orderId}`;
+            });
+            this.on("complete", function () {
+                console.log(a)
+                $(".file-uploader")[0].dropzone.processQueue();
             });
             this.on("processing", function(a){
                 console.log(a);
