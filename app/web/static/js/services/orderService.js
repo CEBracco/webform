@@ -31,14 +31,6 @@ var OrderService = {
             type: 'POST'
         }).done(success);
     },
-    deletePhoto: function (data, success) {
-        $.ajax({
-            url: `/photos/${data.orderId}/${data.filename}`,
-            contentType: 'application/json',
-            data: '',
-            type: 'DELETE'
-        }).done(success);
-    },
     setDeliveryAndPayment: function (data, success) {
         $.ajax({
             url: '/order/setDeliveryAndPayment',
