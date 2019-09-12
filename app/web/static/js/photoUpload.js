@@ -50,6 +50,10 @@ $(document).ready(function(){
                 uploadInProcess = false;
                 window.location.href = `/customer_info/${orderId}`;
             });
+            this.on("complete", function () {
+                console.log(a)
+                $(".file-uploader")[0].dropzone.processQueue();
+            });
             this.on("processing", function(a){
             });
             this.on("complete", function (photo) {
