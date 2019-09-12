@@ -8,9 +8,14 @@ $(document).ready(function(){
         parallelUploads: 1,
         chunking: true,
         forceChunking: true,
-        chunkSize: 256000,
+        chunkSize: 524288,
         retryChunks: true,
-        retryChunksLimit: 3,
+        retryChunksLimit: 10,
+        chunksUploaded: function(photo, done) {
+            PhotoService.process({ orderId: orderId, filename: photo.upload.filename }, function () {
+                done();
+            });
+        },
         paramName: "photo",
         autoProcessQueue: false,
         clickable: ".upload-button",
@@ -53,11 +58,9 @@ $(document).ready(function(){
             this.on("processing", function(a){
             });
             this.on("complete", function (photo) {
-                PhotoService.process({ orderId: orderId, filename: photo.upload.filename }, function () {
-                    if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0) {
-                        $(".file-uploader")[0].dropzone.processQueue();
-                    }
-                });
+                if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0) {
+                    $(".file-uploader")[0].dropzone.processQueue();
+                }
             });
             this.on("totaluploadprogress",function(progress){
                 $(".file-uploader .progress").show();
