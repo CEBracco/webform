@@ -62,10 +62,10 @@
                                         <ul class="collection file-list">
                                             <% photos.forEach(function(photo, photoIndex){ %>
                                             <li class="collection-item avatar photo-item saved" data-photo="<%= photo %>">
-                                                <img class="circle responsive-img" src="/photos/<%= order.hash %>/<%= photo %>">
+                                                <img class="circle responsive-img" src="/photos/<%= order.hash %>/<%= photo %>/thumbnail">
                                                 <span class="title"><span><%= photo.replace(/^[0-9]*-/g, '') %></span></span>
                                                 <p class="details"></p>
-                                                <a class="secondary-content" href="#"><i class="material-icons" onclick="onDeletePhotoButton(this)">clear</i></a>
+                                                <a class="secondary-content" style="cursor:pointer;"><i class="material-icons" onclick="onDeletePhotoButton(this)">clear</i></a>
                                             </li>
                                             <% }) %>
                                         </ul>

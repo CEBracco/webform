@@ -123,37 +123,23 @@ function processFile(orderId, filename, complete) {
     });
 }
 
-
-global.server.app.delete(['/photos/:orderId/:filename/thumbnail'], function (req, res) {
+global.server.app.get(['/photos/:orderId/:filename/thumbnail'], async function (req, res) {
     if (!req.params.orderId || !req.params.filename) {
         res.send(APIResponse.error());
         res.end();
     }
     var orderId = req.params.orderId;
     var filename = req.params.filename;
-    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${filename}`);
-    fs.unlink(photoPath, function (err) {
-        if (err) {
-            res.send(APIResponse.error());
+    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'),`/${orderId}/${filename}`);
+    var Jimp = require('jimp');
+    
+    Jimp.read(photoPath, function (err, photo) {
+        if (photo) {
+            photo.resize(Jimp.AUTO, 250).quality(60).getBuffer(Jimp.AUTO, function (err, buffer) {
+                res.end(buffer);
+            });
+        } else {
+            res.status(404).send('Not found');
         }
-        res.send(APIResponse.ok());
     });
 });
-
-// global.server.app.get(['/photos/:orderId/:filename/thumbnail'], async function (req, res) {
-//     if (!req.params.orderId || !req.params.filename) {
-//         res.send(APIResponse.error());
-//         res.end();
-//     }
-//     const imageThumbnail = require('image-thumbnail');
-//     var orderId = req.params.orderId;
-//     var filename = req.params.filename;
-//     var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'),`/${orderId}/${filename}`);
-//     try {
-//         const thumbnail = await imageThumbnail(photoPath);
-//         res.end(thumbnail);
-//     } catch (err) {
-//         console.error(err);
-//     }
-// });
-

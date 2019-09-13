@@ -25,7 +25,7 @@ $(document).ready(function(){
                 <img class="circle responsive-img" data-dz-thumbnail>
                 <span class="title"><span data-dz-name></span></span>
                 <p class="details" data-dz-size></p>
-                <a href="#!" class="secondary-content" data-dz-remove><i class="material-icons">clear</i></a>
+                <a class="secondary-content" style="cursor:pointer;" data-dz-remove><i class="material-icons">clear</i></a>
             </li>
         `,
         renameFile: function(file) {
