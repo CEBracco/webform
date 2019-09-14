@@ -86,6 +86,7 @@ global.server.app.post(['/photo_upload/:orderId/:filename/process'], function (r
     var filename = req.params.filename;
     try {
         processFile(orderId, filename, function() {
+            generateThumbnail(orderId, filename);
             res.send(APIResponse.ok());
             res.end();
         });
@@ -123,23 +124,31 @@ function processFile(orderId, filename, complete) {
     });
 }
 
-global.server.app.get(['/photos/:orderId/:filename/thumbnail'], async function (req, res) {
+function generateThumbnail(orderId, filename) {
+    const originalPhotoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${filename}`);
+    const thumbnailsDirPath = path.join(config.get('PHOTO_THUMBNAILS_PATH'), `/${orderId}`);
+
+    fs.mkdirp(thumbnailsDirPath, function (err) {
+        var thumb = require('node-thumbnail').thumb;
+        thumb({
+            suffix: '',
+            source: originalPhotoPath,
+            destination: thumbnailsDirPath,
+        });
+    });
+}
+
+global.server.app.get(['/photos/:orderId/:filename/thumbnail'], function (req, res) {
     if (!req.params.orderId || !req.params.filename) {
         res.send(APIResponse.error());
         res.end();
     }
     var orderId = req.params.orderId;
     var filename = req.params.filename;
-    var photoPath = path.join(config.get('PHOTO_UPLOAD_PATH'),`/${orderId}/${filename}`);
-    var Jimp = require('jimp');
-    
-    Jimp.read(photoPath, function (err, photo) {
-        if (photo) {
-            photo.resize(Jimp.AUTO, 250).quality(60).getBuffer(Jimp.AUTO, function (err, buffer) {
-                res.end(buffer);
-            });
-        } else {
-            res.status(404).send('Not found');
-        }
-    });
+    var photoPath = `/${orderId}/${filename}`;
+    if (fs.existsSync(path.join(config.get('PHOTO_THUMBNAILS_PATH'), photoPath))) {
+        res.sendFile(photoPath, { root: config.get('PHOTO_THUMBNAILS_PATH') });
+    } else {
+        res.sendFile(photoPath, { root: config.get('PHOTO_UPLOAD_PATH') });
+    }
 });
