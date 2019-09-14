@@ -25,7 +25,6 @@
     "log4js": "^5.0.0",
     "module-alias": "^2.2.1",
     "mysql2": "^1.6.5",
-    "node-thumbnail": "^0.15.0",
     "sequelize": "^5.15.2",
     "sequelize-cli": "^5.5.0",
     "unirest": "^0.6.0"

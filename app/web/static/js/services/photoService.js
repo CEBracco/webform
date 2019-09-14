@@ -7,6 +7,14 @@ var PhotoService = {
             type: 'POST'
         }).done(success);
     },
+    thumbnail: function (data, success) {
+        $.ajax({
+            url: `/photos/${data.orderId}/${data.filename}/generateThumbnail`,
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            type: 'POST'
+        }).done(success);
+    },
     delete: function (data, success) {
         $.ajax({
             url: `/photos/${data.orderId}/${data.filename}`,

@@ -65,10 +65,13 @@ $(document).ready(function(){
             this.on("totaluploadprogress",function(progress){
                 $(".file-uploader .progress").show();
                 $(".file-uploader .progress .determinate").css("width",`${progress}%`);
-            })
+            });
             this.on("removedfile", function() {
                 $(".file-uploader .progress").hide();
                 validateUpload();
+            });
+            this.on("thumbnail", function (photo, dataUrl) {
+                PhotoService.thumbnail({ orderId: orderId, filename: photo.upload.filename, dataUrl: dataUrl });
             });
         }
     });

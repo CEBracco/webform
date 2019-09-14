@@ -86,7 +86,6 @@ global.server.app.post(['/photo_upload/:orderId/:filename/process'], function (r
     var filename = req.params.filename;
     try {
         processFile(orderId, filename, function() {
-            generateThumbnail(orderId, filename);
             res.send(APIResponse.ok());
             res.end();
         });
@@ -103,7 +102,8 @@ function processFile(orderId, filename, complete) {
     let outputFile = fs.createWriteStream(path.join(uploadDir, filename));
     fs.readdir(chunkDir, function (error, filenames) {
         if (error) {
-            throw new Error('Cannot get upload chunks!');
+            // throw new Error('Cannot get upload chunks!');
+            return complete()
         }
 
         //loop through the temp dir and write to the stream to create a new file
@@ -124,20 +124,30 @@ function processFile(orderId, filename, complete) {
     });
 }
 
-function generateThumbnail(orderId, filename) {
-    const originalPhotoPath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${filename}`);
-    const thumbnailsDirPath = path.join(config.get('PHOTO_THUMBNAILS_PATH'), `/${orderId}`);
+global.server.app.post(['/photos/:orderId/:filename/generateThumbnail'], function (req, res) {
+    if (!req.params.orderId || !req.params.filename || !req.body.dataUrl) {
+        res.send(APIResponse.error());
+        res.end();
+    }
+    generateThumbnail(req.params.orderId, req.params.filename, req.body.dataUrl);
+    res.send(APIResponse.ok());
+});
 
-    fs.mkdirp(thumbnailsDirPath, function (err) {
-        var thumb = require('node-thumbnail').thumb;
-        thumb({
-            suffix: '',
-            width: 92,
-            skip: true,
-            source: originalPhotoPath,
-            destination: thumbnailsDirPath,
+function generateThumbnail(orderId, filename, dataUrl) {
+    const thumbnailsDirPath = path.join(config.get('PHOTO_THUMBNAILS_PATH'), `/${orderId}`);
+    var regex = /^data:.+\/(.+);base64,(.*)$/;
+
+    var matches = dataUrl.match(regex);
+
+    if (matches) {
+        fs.mkdirp(thumbnailsDirPath, function (err) {
+            var fs = require('fs');
+            var ext = matches[1];
+            var data = matches[2];
+            var buffer = new Buffer(data, 'base64');
+            fs.writeFileSync(path.join(thumbnailsDirPath, filename), buffer);
         });
-    });
+    }
 }
 
 global.server.app.get(['/photos/:orderId/:filename/thumbnail'], function (req, res) {
