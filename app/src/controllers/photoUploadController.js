@@ -132,6 +132,8 @@ function generateThumbnail(orderId, filename) {
         var thumb = require('node-thumbnail').thumb;
         thumb({
             suffix: '',
+            width: 92,
+            skip: true,
             source: originalPhotoPath,
             destination: thumbnailsDirPath,
         });
