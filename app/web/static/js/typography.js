@@ -20,6 +20,7 @@ $(document).ready(function () {
         }
     });
     $('#photoText').keyup(function() {
+        skipTextValidation = $("input[name='typography']:checked").closest('.selectable-item').hasClass('none');
         if (textIsValid() && $("input[name='typography']:checked").length > 0) {
             $('.btn-next').removeClass('disabled');
         } else {

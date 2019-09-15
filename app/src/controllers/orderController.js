@@ -27,10 +27,6 @@ global.server.app.post(prefix + '/create', function (req, res) {
 });
 
 global.server.app.post(prefix + '/setTypography', function (req, res) {
-    if (!req.body.textValue || req.body.textValue.trim() == '') {
-        res.send(APIResponse.error(null, 'Debes ingresar un texto!'));
-        res.end();
-    }
     if (!req.body.orderId || (req.body.typographyId && isNaN(parseInt(req.body.typographyId)))) {
         res.send(APIResponse.error());
         res.end();
@@ -38,6 +34,10 @@ global.server.app.post(prefix + '/setTypography', function (req, res) {
     if (req.body.typographyId) {
         db.Order.findOne({ where: { hash: req.body.orderId }, include: [db.Text] }).then(order => {
             db.Variation.findByPk(parseInt(req.body.typographyId)).then(typography => {
+                if (typography.price > 0 && (!req.body.textValue || req.body.textValue.trim() == '')) {
+                    res.send(APIResponse.error(null, 'Debes ingresar un texto!'));
+                    res.end();
+                }
                 if(order.Text) {
                     order.Text.update({ value: req.body.textValue }).then(text => {
                         text.setTypography(typography).then(textPersisted => {
