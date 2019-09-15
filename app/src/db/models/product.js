@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     paymentLink: DataTypes.STRING
   }, {});
   Product.associate = function(models) {
-    // associations can be defined here
+    Product.belongsTo(models.Group);
   };
   return Product;
 };
