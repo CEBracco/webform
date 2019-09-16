@@ -25,8 +25,8 @@ $(document).ready(function(){
                 <img class="circle responsive-img" data-dz-thumbnail>
                 <span class="title"><span data-dz-name></span></span>
                 <p class="details" data-dz-size></p>
-                <a class="secondary-content" style="cursor:pointer;" data-dz-remove><i class="material-icons">clear</i></a>
-                <div class="ldBar"></div>
+                <a class="secondary-content btn-remove" style="cursor:pointer;" data-dz-remove><i class="material-icons">clear</i></a>
+                <div class="ldBar label-center secondary-content" data-preset="circle" data-stroke-trail-width="10" data-stroke="rgb(135, 118, 40)" data-fill="rgb(135, 118, 40)" data-fill-background-extrude="8" data-fill-background="#d0d0d0" data-stroke-width="15" style="width:5%;height:auto"></div>
             </li>
         `,
         renameFile: function(file) {
@@ -94,8 +94,7 @@ $(document).ready(function(){
 
     $('.confirm-upload').click(function(){
         if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0 || uploadInProcess) {
-            configureLoadingBars();
-            uploadInProcess = true;
+            enableUploadStatus()
             $(".file-uploader")[0].dropzone.processQueue();
         } else {
             window.location.href = `/customer_info/${orderId}`;
@@ -137,4 +136,10 @@ function configureLoadingBars() {
     $('.ldBar').each(function () {
         new ldBar(this);
     });
+}
+
+function enableUploadStatus() {
+    uploadInProcess = true;
+    $('.btn-remove').hide();
+    configureLoadingBars();
 }

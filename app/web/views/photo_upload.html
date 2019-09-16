@@ -66,7 +66,7 @@
                                                 <img class="circle responsive-img" src="/photos/<%= order.hash %>/<%= photo %>/thumbnail">
                                                 <span class="title"><span><%= photo.replace(/^[0-9]*-/g, '') %></span></span>
                                                 <p class="details"></p>
-                                                <a class="secondary-content" style="cursor:pointer;"><i class="material-icons" onclick="onDeletePhotoButton(this)">clear</i></a>
+                                                <a class="secondary-content btn-remove" style="cursor:pointer;"><i class="material-icons" onclick="onDeletePhotoButton(this)">clear</i></a>
                                             </li>
                                             <% }) %>
                                         </ul>
