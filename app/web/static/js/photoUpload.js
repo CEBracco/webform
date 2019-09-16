@@ -21,11 +21,12 @@ $(document).ready(function(){
         clickable: ".upload-button",
         previewsContainer: ".file-list",
         previewTemplate: `
-            <li class="collection-item avatar photo-item">
+            <li class="collection-item avatar photo-item dz-preview dz-file-preview">
                 <img class="circle responsive-img" data-dz-thumbnail>
                 <span class="title"><span data-dz-name></span></span>
                 <p class="details" data-dz-size></p>
                 <a class="secondary-content" style="cursor:pointer;" data-dz-remove><i class="material-icons">clear</i></a>
+                <div class="ldBar"></div>
             </li>
         `,
         renameFile: function(file) {
@@ -62,6 +63,14 @@ $(document).ready(function(){
                     $(".file-uploader")[0].dropzone.processQueue();
                 }
             });
+            this.on("uploadprogress", function (photo, progress) {
+                if (progress < 100) {
+                    $('.dz-processing:not(.dz-success) > .ldBar')[0].ldBar.set(progress);
+                }
+            });
+            this.on("success", function (photo) {
+                $('.dz-success > .ldBar').last()[0].ldBar.set(100);
+            });
             this.on("totaluploadprogress",function(progress){
                 $(".file-uploader .progress").show();
                 $(".file-uploader .progress .determinate").css("width",`${progress}%`);
@@ -85,6 +94,7 @@ $(document).ready(function(){
 
     $('.confirm-upload').click(function(){
         if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0 || uploadInProcess) {
+            configureLoadingBars();
             uploadInProcess = true;
             $(".file-uploader")[0].dropzone.processQueue();
         } else {
@@ -121,4 +131,10 @@ function validateUpload() {
     //it's all ok!!! let me leave here
     $('.upload-counter').removeClass('required');
     $('.confirm-upload').removeClass('disabled');
+}
+
+function configureLoadingBars() {
+    $('.ldBar').each(function () {
+        new ldBar(this);
+    });
 }
