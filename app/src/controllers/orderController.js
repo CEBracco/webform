@@ -2,6 +2,7 @@ const APIResponse = require('@appSrc/utils/apiResponse');
 const db = global.db;
 const CryptoUtils = require('@appSrc/utils/cryptoUtils');
 const NotificationBroker = require('@appSrc/notification/notificationBroker');
+const OrderPhotosUtils = require('@appSrc/utils/orderPhotosUtils');
 const prefix = '/order';
 
 global.server.app.post(prefix + '/create', function (req, res) {
@@ -128,6 +129,7 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
             if (sendNotification){
                 NotificationBroker.sendNewOrderNotification(updatedOrder);
             }
+            OrderPhotosUtils.cleanTempPhotos(updatedOrder.hash)
             res.send(APIResponse.ok({ completeUrl: getCompleteUrl(updatedOrder) }));
             res.end();
         });

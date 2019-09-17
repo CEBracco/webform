@@ -2,6 +2,7 @@ const db = global.db;
 var config = require('@localModules/config/Config.js');
 var path = require('path');
 var fs = require('fs-extra');
+const OrderPhotosUtils = require('@appSrc/utils/orderPhotosUtils');
 const APIResponse = require('@appSrc/utils/apiResponse');
 
 global.server.app.get(['/photo_upload/:orderId'], function (req, res) {
@@ -10,21 +11,10 @@ global.server.app.get(['/photo_upload/:orderId'], function (req, res) {
         if (!order) {
             res.redirect('/');
         }
-        res.render("photo_upload", { order: order, photos: getUploadedPhotos(orderId) });
+        res.render("photo_upload", { order: order, photos: OrderPhotosUtils.getUploadedPhotos(orderId) });
         res.end();
     });
 });
-
-
-function getUploadedPhotos(orderId) {
-    let orderPhotoDir = path.join(config.get('PHOTO_UPLOAD_PATH'), orderId);
-    let photos = []
-    fs.mkdirpSync(orderPhotoDir)
-    fs.readdirSync(orderPhotoDir).forEach(file => {
-        photos.push(file);
-    });
-    return photos;
-}
 
 global.server.app.get(['/photos/:orderId/:filename'], function (req, res) {
     if (!req.params.orderId || !req.params.filename) {

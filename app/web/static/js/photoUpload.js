@@ -27,8 +27,8 @@ $(document).ready(function(){
                 <p class="details" data-dz-size></p>
                 <a class="secondary-content btn-remove" style="cursor:pointer;" data-dz-remove><i class="material-icons">clear</i></a>
                 <div class="ldBar label-center secondary-content" data-preset="circle" data-stroke-trail-width="15" data-stroke="rgb(135, 118, 40)" data-fill="rgb(135, 118, 40)" data-fill-background-extrude="8" data-fill-background="#d0d0d0" data-stroke-width="15" style="width:5%;height:auto;min-width: 40px;"></div>
-                <div class="secondary-content success-mark" style="cursor:none;display:none;"><i class="material-icons">cloud_done</i></div>
-                <div class="secondary-content error-mark" style="cursor:none;display:none;"><i class="material-icons required">error_outline</i></div>
+                <div class="secondary-content success-mark" style="cursor:default;display:none;"><i class="material-icons">cloud_done</i></div>
+                <div class="secondary-content error-mark" style="cursor:default;display:none;"><i class="material-icons required">error_outline</i></div>
             </li>
         `,
         renameFile: function(file) {
@@ -55,13 +55,15 @@ $(document).ready(function(){
                 validateUpload();
             });
             this.on("queuecomplete", function(){
-                uploadInProcess = false;
-                window.location.href = `/customer_info/${orderId}`;
+                if (uploadInProcess && uploadIsValid()) {
+                    uploadInProcess = false;
+                    window.location.href = `/customer_info/${orderId}`;
+                }
             });
             this.on("processing", function(a){
             });
             this.on("complete", function (photo) {
-                if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0) {
+                if ($(".file-uploader")[0].dropzone.getQueuedFiles().length > 0 && uploadInProcess) {
                     $(".file-uploader")[0].dropzone.processQueue();
                 }
             });
@@ -76,8 +78,12 @@ $(document).ready(function(){
                 $('.dz-success > .success-mark').last().fadeIn();
             });
             this.on("error", function (photo) {
-                $('.dz-error > .ldBar').last().fadeOut();
-                $('.dz-error > .error-mark').last().fadeIn();
+                if (!uploadInProcess) {
+                    $(".file-uploader")[0].dropzone.removeFile(photo)
+                } else {
+                    $('.dz-error > .ldBar').last().fadeOut();
+                    $('.dz-error > .error-mark').last().fadeIn();
+                }
             });
             this.on("totaluploadprogress",function(progress){
                 $(".file-uploader .progress").show();
@@ -140,6 +146,11 @@ function validateUpload() {
     //it's all ok!!! let me leave here
     $('.upload-counter').removeClass('required');
     $('.confirm-upload').removeClass('disabled');
+}
+
+function uploadIsValid() {
+    var uploadedPhotosCount = $('.photo-item').length
+    return uploadedPhotosCount == acceptedPhotos
 }
 
 function configureLoadingBars() {

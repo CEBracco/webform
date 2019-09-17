@@ -3,6 +3,7 @@ var config = require('@localModules/config/Config.js');
 var path = require('path');
 var fs = require('fs');
 var AdmZip = require('adm-zip');
+const OrderPhotosUtils = require('@appSrc/utils/orderPhotosUtils');
 
 
 global.server.app.get(['/checkout/:authToken/:orderId'], function (req, res) {
@@ -42,7 +43,7 @@ global.server.app.get(['/checkout/:authToken/:orderId/download'], function (req,
                 }
                 const zip = new AdmZip();
     
-                getUploadedPhotos(orderId).forEach(filename => {
+                OrderPhotosUtils.getUploadedPhotos(orderId).forEach(filename => {
                     zip.addLocalFile(path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${filename}`));
                 });
     
@@ -62,12 +63,3 @@ global.server.app.get(['/checkout/:authToken/:orderId/download'], function (req,
         res.end();
     }
 });
-
-function getUploadedPhotos(orderId) {
-    let orderPhotoDir = path.join(config.get('PHOTO_UPLOAD_PATH'), orderId);
-    let photos = []
-    fs.readdirSync(orderPhotoDir).forEach(file => {
-        photos.push(file);
-    });
-    return photos;
-}
