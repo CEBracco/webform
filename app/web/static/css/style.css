@@ -87,6 +87,14 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     padding-bottom: 5px;
     color: #212121;
 }
+.ldBar {
+    right: 10px !important;
+}
+@media screen and (max-width: 320px) {
+    .ldBar {
+        right: 0px !important;
+    }
+}
 
 .selectable-item label {
     color: #212121;
@@ -205,6 +213,8 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 .file-uploader .collection>.collection-item .title {
     word-break: break-word;
     color: #212121;
+    display: block;
+    width: 90%;
 }
 .file-uploader .collection>.collection-item .details {
     color: #9e9e9e;
