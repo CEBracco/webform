@@ -28,6 +28,8 @@ $(document).ready(function () {
             $('.btn-next').addClass('disabled');
         }
     });
+
+    init();
 });
 
 function processDeliveryMethod() {
@@ -45,5 +47,12 @@ function processPaymentMethod() {
         $('.mercadopago-alert').show();
     } else {
         $('.mercadopago-alert').hide();
+    }
+}
+
+function init() {
+    if ($("input[name='deliveryMethod']:checked").length > 0 && $("input[name='paymentMethod']:checked").length > 0) {
+        processPaymentMethod();
+        $('.btn-next').removeClass('disabled');
     }
 }

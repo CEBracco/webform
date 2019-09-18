@@ -1,4 +1,5 @@
 var uploadInProcess = false;
+var showingError = false;
 
 $(document).ready(function(){
     $(".file-uploader").dropzone({ 
@@ -83,6 +84,7 @@ $(document).ready(function(){
                 } else {
                     $('.dz-error > .ldBar').last().fadeOut();
                     $('.dz-error > .error-mark').last().fadeIn();
+                    showError();
                 }
             });
             this.on("totaluploadprogress",function(progress){
@@ -163,4 +165,20 @@ function enableUploadStatus() {
     uploadInProcess = true;
     $('.btn-remove').hide();
     configureLoadingBars();
+}
+
+function showError() {
+    if (!showingError) {
+        showingError = true;
+        Snackbar.show({
+            text: 'Ups! parece que ocurrió un error al subir las fotos. Controlá tu conexión a internet y recarga la página para intentarlo nuevamente.',
+            pos: 'bottom-center',
+            actionText: 'Recargar',
+            actionTextColor: 'rgb(135, 118, 40)',
+            duration: 0,
+            onActionClick: function () {
+                window.location.reload(true);
+            }
+        });
+    }
 }
