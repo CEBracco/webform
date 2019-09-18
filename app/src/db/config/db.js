@@ -6,12 +6,15 @@ var Sequelize = require('sequelize');
 var modelsPath = 'app/src/db/models';
 var db = {};
 
+var logging = config.getBoolean('DB_LOGGING') ? console.log : false;
+
 const sequelize = new Sequelize(config.get('DB_NAME'), config.get('DB_USER'), config.get('DB_PASSWORD'), {
     host: config.get('DB_HOST'),
     define: {
         paranoid: true
     },
-    dialect: config.get('DB_DIALECT')
+    dialect: config.get('DB_DIALECT'),
+    logging: logging
 })
 
 fs
