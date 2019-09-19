@@ -17,7 +17,7 @@ html, body {
 }
 
 .card.card-base {
-    border-top: solid 8px rgb(228, 213, 163);
+    border-top: solid 8px #ffd69a;
 }
 
 /* buttons */
@@ -25,22 +25,22 @@ html, body {
     width: 100%;
 }
 .btn.btn-primary {
-    background-color: rgb(135, 118, 40);
+    background-color: #c17300;
 }
 
 .btn.btn-primary:hover {
-    background-color: rgb(155, 138, 60);
+    background-color: #db8200;
 }
 
 /* radio buttons */
 [type="radio"]:checked + span:after, 
 [type="radio"].with-gap:checked + span:before,
 [type="radio"].with-gap:checked + span:after {
-    border: 2px solid rgb(135, 118, 40);
+    border: 2px solid #c17300;
 } 
 [type="radio"]:checked + span:after,
 [type="radio"].with-gap:checked + span:after {
-    background-color: rgb(135, 118, 40);
+    background-color: #c17300;
 }
 /* inputs */
 input:not([type]):focus:not([readonly]),
@@ -56,10 +56,10 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-    color: rgb(135, 118, 40) !important;
-    border-bottom: 1px solid rgb(135, 118, 40);
-    -webkit-box-shadow: 0 1px 0 0 rgb(135, 118, 40);
-    box-shadow: 0 1px 0 0 rgb(135, 118, 40);
+    color: #c17300 !important;
+    border-bottom: 1px solid #c17300;
+    -webkit-box-shadow: 0 1px 0 0 #c17300;
+    box-shadow: 0 1px 0 0 #c17300;
 }
 input:not([type]):focus:not([readonly])+label, 
 input[type=text]:not(.browser-default):focus:not([readonly])+label, 
@@ -74,7 +74,7 @@ input[type=tel]:not(.browser-default):focus:not([readonly])+label,
 input[type=number]:not(.browser-default):focus:not([readonly])+label, 
 input[type=search]:not(.browser-default):focus:not([readonly])+label, 
 textarea.materialize-textarea:focus:not([readonly])+label {
-    color: rgb(135, 118, 40) !important;
+    color: #c17300 !important;
 }
 
 [type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
@@ -101,7 +101,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 }
 
 .progress .determinate {
-    background-color: rgb(135, 118, 40) !important;
+    background-color: #c17300 !important;
 }
 
 .card > .image-container {
@@ -114,7 +114,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 }
 
 .card.selected {
-    border: 2px solid rgb(135, 118, 40);
+    border: 2px solid #c17300;
 }
 
 .detail-image-container {
@@ -238,7 +238,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 /* collection */
 .collection.fb-collection > .collection-header {
     color: white;
-    background-color: rgb(135, 118, 40);
+    background-color: #c17300;
 }
 .collection.fb-collection > .collection-item {
     padding: 10px 20px;
