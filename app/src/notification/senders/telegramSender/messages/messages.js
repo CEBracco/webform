@@ -4,8 +4,8 @@ function newOrderNotification(order){
   return `<b>Tenés un nuevo pedido!</b> 🎉
 
 Producto: <i>${order.Product.name}</i>
-Tipografía: <i>${order.Background.name}</i>
-Fondo: <i>${order.Text.Typography.name}</i>
+Fondo: <i>${order.Background.name}</i>
+Tipografía: <i>${order.Text.Typography.name}</i>
 <b>Total: $${order.Product.price + order.Background.price + order.Text.Typography.price}</b>
 
 Forma de Entrega: <i>${translateDeliveryMethod(order.deliveryMethod)}</i>
