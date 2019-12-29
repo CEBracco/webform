@@ -234,6 +234,13 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 .clear-button:hover{
     background-color: rgba(0, 0, 0, 0.25);
 }
+.file-uploader.detail-items {
+    min-height: auto;
+}
+.deliveryPoint {
+    margin-bottom: 10px;
+    padding-left: 25px;
+}
 
 /* collection */
 .collection.fb-collection > .collection-header {

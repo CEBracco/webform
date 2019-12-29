@@ -31,7 +31,7 @@
                                 <p class="center-align">$<%= order.Product.price %></p>
                             </div>
                         </div>
-                        <div class="row file-uploader margin-bottom-0">
+                        <div class="row file-uploader detail-items margin-bottom-0">
                             <ul class="collection">
                                 <li class="collection-item avatar">
                                     <img class="circle responsive-img" src="<%= (order.Background.image && order.Background.image != '')? order.Background.image : '/img/default.jpg' %>">
@@ -56,9 +56,20 @@
                                     <label>
                                         <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="deliveryPoint" onchange="processDeliveryMethod()"
                                         <% if(order && order.deliveryMethod == 'deliveryPoint') { %> checked <% } %>>
-                                        <span>Lo retiro en un punto de entrega (Constitucion, Quilmes, Berazategui, La Plata)</span>
+                                        <span>Lo retiro en un punto de entrega (Los mismos se corresponden con las estaciones del tren Roca)</span>
                                     </label>
                                 </p>
+                                <div class="deliveryPoint" style="display: none">
+                                    <div class="input-field">
+                                        <select name="deliveryPoint">
+                                            <option value="" disabled <% if(order && (!order.deliveryPoint || order.deliveryPoint == "")) { %> selected <% } %>>No seleccionado</option>
+                                            <% deliveryPoints.forEach(function(deliveryPoint){ %>
+                                                <option value="<%= deliveryPoint %>" <% if(order && order.deliveryPoint == deliveryPoint) { %> selected <% } %>><%= deliveryPoint %></option>
+                                            <% }) %>
+                                        </select>
+                                        <label>Seleccioná el punto de entrega</label>
+                                    </div>
+                                </div>
                                 <p>
                                     <label>
                                         <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="shipping" onchange="processDeliveryMethod()"

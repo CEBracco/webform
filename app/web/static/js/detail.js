@@ -1,9 +1,10 @@
 $(document).ready(function () {
     $('.btn-next').click(function () {
         var deliveryMethod = $("input[name='deliveryMethod']:checked").val();
+        var deliveryPoint = $("select[name='deliveryPoint']").val();
         var paymentMethod = $("input[name='paymentMethod']:checked").val();
         $('.btn-next').addClass('disabled');
-        OrderService.setDeliveryAndPayment({ orderId: orderId, deliveryMethod: deliveryMethod, paymentMethod: paymentMethod }, function (res) {
+        OrderService.setDeliveryAndPayment({ orderId: orderId, deliveryMethod: deliveryMethod, paymentMethod: paymentMethod, deliveryPoint: deliveryPoint }, function (res) {
             if (res.ok) {
                 window.location.href = res.data.completeUrl;
             }
@@ -14,7 +15,8 @@ $(document).ready(function () {
     });
 
     $("input[name='deliveryMethod']").change(function () {
-        if ($("input[name='paymentMethod']:checked").length > 0) {
+        processDeliveryPoint()
+        if ($("input[name='paymentMethod']:checked").length > 0 && isValidDeliveryPoint()) {
             $('.btn-next').removeClass('disabled');
         } else {
             $('.btn-next').addClass('disabled');
@@ -22,12 +24,22 @@ $(document).ready(function () {
     });
 
     $("input[name='paymentMethod']").change(function () {
-        if ($("input[name='deliveryMethod']:checked").length > 0) {
+        if ($("input[name='deliveryMethod']:checked").length > 0 && isValidDeliveryPoint()) {
             $('.btn-next').removeClass('disabled');
         } else {
             $('.btn-next').addClass('disabled');
         }
     });
+
+    $("select[name='deliveryPoint']").change(function(){
+        if ($("input[name='paymentMethod']:checked") && $("input[name='deliveryMethod']:checked").length > 0 && isValidDeliveryPoint()) {
+            $('.btn-next').removeClass('disabled');
+        } else {
+            $('.btn-next').addClass('disabled');
+        }
+    });
+
+    $('select').formSelect();
 
     init();
 });
@@ -50,8 +62,24 @@ function processPaymentMethod() {
     }
 }
 
+function processDeliveryPoint() {
+    if ($("input[name='deliveryMethod']:checked").val() == "deliveryPoint") {
+        $(".deliveryPoint").show();
+    } else {
+        $(".deliveryPoint").hide();
+    }
+}
+
+function isValidDeliveryPoint() {
+    if ($("input[name='deliveryMethod']:checked").val() == "deliveryPoint") {
+        return $("select[name='deliveryPoint']").val() && $("select[name='deliveryPoint']").val() != ""
+    }
+    return true
+}
+
 function init() {
-    if ($("input[name='deliveryMethod']:checked").length > 0 && $("input[name='paymentMethod']:checked").length > 0) {
+    processDeliveryPoint()
+    if ($("input[name='deliveryMethod']:checked").length > 0 && $("input[name='paymentMethod']:checked").length > 0 && isValidDeliveryPoint()) {
         processPaymentMethod();
         $('.btn-next').removeClass('disabled');
     }

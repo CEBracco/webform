@@ -1,4 +1,5 @@
 const db = global.db;
+const deliveryPoints = ['Plaza Constitución', 'Quilmes', 'Berazategui', 'Ranelagh', 'La Plata']
 
 global.server.app.get(['/detail/:orderId'], function (req, res) {
     var orderId = req.params.orderId;
@@ -11,7 +12,7 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         ]
     }).then(order => {
         checkOrderAndRedirectOnFail(order, res);
-        res.render("detail", { order: order, dataIsValid: validPaymentAndDeliverData(order) });
+        res.render("detail", { order: order, dataIsValid: validPaymentAndDeliverData(order), deliveryPoints: deliveryPoints });
         res.end();
     });
 });
@@ -32,6 +33,12 @@ function checkOrderAndRedirectOnFail(order, res) {
 }
 
 function validPaymentAndDeliverData(order) {
-    return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago') 
-        && (order.deliveryMethod == 'deliveryPoint' || order.deliveryMethod == 'shipping')
+    if (order.deliveryMethod == 'deliveryPoint') {
+        return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago')
+            && (order.deliveryMethod == 'deliveryPoint' || order.deliveryMethod == 'shipping')
+            && (order.deliveryPoint && order.deliveryPoint != '')
+    } else {
+        return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago') 
+            && (order.deliveryMethod == 'deliveryPoint' || order.deliveryMethod == 'shipping')
+    }
 }

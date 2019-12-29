@@ -123,6 +123,7 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
         var sendNotification = !order.completed
         order.update({
             deliveryMethod: req.body.deliveryMethod,
+            deliveryPoint: req.body.deliveryPoint,
             paymentMethod: req.body.paymentMethod,
             completed: true
         }).then(updatedOrder => {

@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     instagramUser: DataTypes.STRING,
     paymentMethod: DataTypes.STRING,
     deliveryMethod: DataTypes.STRING,
+    deliveryPoint: DataTypes.STRING,
     completed: DataTypes.BOOLEAN
   }, {});
   Order.associate = function(models) {
