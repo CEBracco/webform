@@ -21,7 +21,7 @@ global.server.app.get(['/checkout/:authToken/:orderId'], function (req, res) {
             if (!order) {
                 res.redirect('/');
             }
-            res.render("checkout", { order: order });
+            res.render("checkout", { order: order, checkoutToken: authToken });
             res.end();
         });
     } else {
