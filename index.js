@@ -16,13 +16,19 @@ function loadControllers() {
     require('@appSrc/controllers/completedOrderController');
     require('@appSrc/controllers/checkoutController');
     require('@appSrc/controllers/imageController');
+    require('@appSrc/controllers/ordersListController');
 }
 
 function loadNotificationBroker() {
     global.notificationBroker = require('@appSrc/notification/notificationBroker');
 }
 
+function loadUtils() {
+    require('@appSrc/utils/dateUtils');
+}
+
 connectToDB();
+loadUtils()
 loadControllers();
 loadNotificationBroker();
 global.server.start();

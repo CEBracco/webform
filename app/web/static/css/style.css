@@ -1,3 +1,9 @@
+:root {
+    --color-primary: #c17300;
+    --color-primary-light: #ffd69a;
+    --color-primary-accent: #db8200;
+}
+
 html, body {
     background-color: #F0EFE7;
 }
@@ -17,7 +23,7 @@ html, body {
 }
 
 .card.card-base {
-    border-top: solid 8px #ffd69a;
+    border-top: solid 8px var(--color-primary-light);
 }
 
 /* buttons */
@@ -25,22 +31,22 @@ html, body {
     width: 100%;
 }
 .btn.btn-primary {
-    background-color: #c17300;
+    background-color: var(--color-primary);
 }
 
 .btn.btn-primary:hover {
-    background-color: #db8200;
+    background-color: var(--color-primary-accent);
 }
 
 /* radio buttons */
 [type="radio"]:checked + span:after, 
 [type="radio"].with-gap:checked + span:before,
 [type="radio"].with-gap:checked + span:after {
-    border: 2px solid #c17300;
+    border: 2px solid var(--color-primary);
 } 
 [type="radio"]:checked + span:after,
 [type="radio"].with-gap:checked + span:after {
-    background-color: #c17300;
+    background-color: var(--color-primary);
 }
 /* inputs */
 input:not([type]):focus:not([readonly]),
@@ -56,10 +62,10 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-    color: #c17300 !important;
-    border-bottom: 1px solid #c17300;
-    -webkit-box-shadow: 0 1px 0 0 #c17300;
-    box-shadow: 0 1px 0 0 #c17300;
+    color: var(--color-primary) !important;
+    border-bottom: 1px solid var(--color-primary);
+    -webkit-box-shadow: 0 1px 0 0 var(--color-primary);
+    box-shadow: 0 1px 0 0 var(--color-primary);
 }
 input:not([type]):focus:not([readonly])+label, 
 input[type=text]:not(.browser-default):focus:not([readonly])+label, 
@@ -74,7 +80,7 @@ input[type=tel]:not(.browser-default):focus:not([readonly])+label,
 input[type=number]:not(.browser-default):focus:not([readonly])+label, 
 input[type=search]:not(.browser-default):focus:not([readonly])+label, 
 textarea.materialize-textarea:focus:not([readonly])+label {
-    color: #c17300 !important;
+    color: var(--color-primary) !important;
 }
 
 [type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
@@ -101,7 +107,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 }
 
 .progress .determinate {
-    background-color: #c17300 !important;
+    background-color: var(--color-primary) !important;
 }
 
 .card > .image-container {
@@ -114,7 +120,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 }
 
 .card.selected {
-    border: 2px solid #c17300;
+    border: 2px solid var(--color-primary);
 }
 
 .detail-image-container {
@@ -241,16 +247,78 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     margin-bottom: 10px;
     padding-left: 25px;
 }
+.order-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding-top: 10px;
+}
 
 /* collection */
 .collection.fb-collection > .collection-header {
     color: white;
-    background-color: #c17300;
+    background-color: var(--color-primary);
 }
 .collection.fb-collection > .collection-item {
     padding: 10px 20px;
 }
 
+/* select */
+.dropdown-content li>a,
+.dropdown-content li>span  {
+    color: var(--color-primary);
+}
+.select-wrapper input.select-dropdown:focus {
+    border-color: var(--color-primary);
+}
+
+/* table */
+table.highlight>tbody>tr:hover {
+    background-color: rgba(230,230,230,1);
+}
+
+/* statuses  */
+.status-dropdown-btn {
+    min-width: 186px;
+}
+.pending-status,
+.pending-status:hover,
+.pending-status:active,
+.pending-status:focus {
+    background-color: #e53935;
+}
+.design-status,
+.design-status:hover,
+.design-status:active,
+.design-status:focus {
+    background-color: #fb8c00;
+}
+.print-status,
+.print-status:hover,
+.print-status:active,
+.print-status:focus {
+    color: black;
+    background-color: #fdd835;
+}
+.packaging-status,
+.packaging-status:hover,
+.packaging-status:active,
+.packaging-status:focus {
+    color: black;
+    background-color: #eeff41;
+}
+.ready-status,
+.ready-status:hover,
+.ready-status:active,
+.ready-status:focus {
+    background-color: #4db6ac;
+}
+.delivered-status,
+.delivered-status:hover,
+.delivered-status:active,
+.delivered-status:focus {
+    background-color: #90a4ae;
+}
 
 /*Animations*/
 @keyframes slide-up {

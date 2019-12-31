@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     paymentMethod: DataTypes.STRING,
     deliveryMethod: DataTypes.STRING,
     deliveryPoint: DataTypes.STRING,
-    completed: DataTypes.BOOLEAN
+    completed: DataTypes.BOOLEAN,
+    status: DataTypes.STRING
   }, {});
   Order.associate = function(models) {
     Order.belongsTo(models.Product);

@@ -1,3 +1,17 @@
+$(document).ready(function () {
+    setPaceOptions();
+})
+
+function setPaceOptions() {
+    var interval = setInterval(function () {
+        if (window.Pace) {
+            Pace.options.ajax.trackMethods = ['GET', 'POST'];
+            Pace.options.ajax.trackWebSockets = false;
+            clearInterval(interval)
+        }
+    }, 2000);
+}
+
 $(document).ready(function() {
     $('.selectable-item .image-container').click(function() {
         var selectableItem = $(this).closest('.selectable-item').find("input[type='radio']");

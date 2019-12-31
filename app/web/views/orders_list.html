@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flor Barrau Fotografía</title>
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.ico"/>
+    <meta name="theme-color" content="rgb(216, 124, 46)">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="/lib/pace/pace-theme.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="background-header"></div>
+    <div class="content">
+        <div class="row">
+            <div class="col s12 col m10 offset-m1">
+                <div class="card card-base">
+                    <div class="card-content">
+                        <h4>Pedidos</h4>
+                        <div class="row">
+                            <% orders.forEach(order => { %>
+                                <div class="col s12 hide-on-med-and-up">
+                                    <div class="order-item">
+                                        <p><b>Fecha:</b> <%= order.createdAt.formatDateTime() %></p>
+                                        <p><b>Nombre y Apellido:</b> <%= order.name %> <%= order.surname %> <%= (order.instagramUser && order.instagramUser != '') ? `(${order.instagramUser})` : '' %></p>
+                                        <p><b>Producto:</b> <%= order.Product.name %></p>
+                                        <p><b>Precio:</b> $<%= order.Product.price + order.Background.price + order.Text.Typography.price %></p>
+                                        <br>
+                                        <p><b>Método de Entrega:</b> <%= order.deliveryMethod == 'shipping' ? 'Envío' : 'Punto de Entrega' %>
+                                        <%= (order.deliveryMethod == 'deliveryPoint' && order.deliveryPoint && order.deliveryPoint != '') ? `(${order.deliveryPoint})` : '' %></p>
+                                        <p><b>Método de Pago:</b> <%= order.paymentMethod == 'mercadopago' ? 'MercadoPago' : 'Efectivo' %></p>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <div class="row hide-on-small-only">
+                            <div class="col s12">
+                                <table class="striped highlight">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Nombre y Apellido</th>
+                                            <th>Producto</th>
+                                            <th>Precio</th>
+                                            <th class="center-align">Método de Entrega</th>
+                                            <th class="center-align">Método de Pago</th>
+                                            <th class="center-align">Estado</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% orders.forEach(order => { %>
+                                            <tr>
+                                                <td><%= order.createdAt.formatDateTime() %></td>
+                                                <td><%= order.name %> <%= order.surname %>
+                                                <%= (order.instagramUser && order.instagramUser != '') ? `(${order.instagramUser})` : '' %></td>
+                                                <td><%= order.Product.name %></td>
+                                                <td class="right-align">$<%= order.Product.price + order.Background.price + order.Text.Typography.price %></td>
+                                                <td class="center-align">
+                                                    <%= order.deliveryMethod == 'shipping' ? 'Envío' : 'Punto de Entrega' %>
+                                                    <%= (order.deliveryMethod == 'deliveryPoint' && order.deliveryPoint && order.deliveryPoint != '') ? `(${order.deliveryPoint})` : '' %>
+                                                </td>
+                                                <td class="center-align"><%= order.paymentMethod == 'mercadopago' ? 'MercadoPago' : 'Efectivo' %></td>
+                                                <td>
+                                                    <button class="waves-effect waves-light-3 btn btn-small dropdown-trigger status-dropdown-btn <%= order.status %>-status" data-status="<%= order.status %>" data-target='dropdown-<%= order.id %>'><%= getTranslatedStatus(order.status) %></button>
+                                                    <ul id='dropdown-<%= order.id %>' class='dropdown-content status-dropdown'>
+                                                        <li data-status="pending"><a>Pendiente</a></li>
+                                                        <li data-status="design"><a>Diseño</a></li>
+                                                        <li data-status="print"><a>Impresión</a></li>
+                                                        <li data-status="packaging"><a>Corte y Empaquetado</a></li>
+                                                        <li data-status="ready"><a>Listo para la entrega</a></li>
+                                                        <li data-status="delivered"><a>Entregado</a></li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <a href="/checkout/<%= checkoutToken %>/<%= order.hash %>" class="waves-effect waves-light-3 black-text btn-flat"><i class="material-icons">remove_red_eye</i></a>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/lib/pace/pace.min.js"></script>
+<script src="/js/base.js"></script>
+<script src="/js/services/orderService.js"></script>
+<script src="/js/services/adminOrderService.js"></script>
+<script>
+    var checkoutToken = '<%= checkoutToken %>';
+</script>
+<script src="/js/ordersList.js"></script>
+</html>

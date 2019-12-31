@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 
     $("select[name='deliveryPoint']").change(function(){
-        if ($("input[name='paymentMethod']:checked") && $("input[name='deliveryMethod']:checked").length > 0 && isValidDeliveryPoint()) {
+        if ($("input[name='paymentMethod']:checked").length > 0 && $("input[name='deliveryMethod']:checked").length > 0 && isValidDeliveryPoint()) {
             $('.btn-next').removeClass('disabled');
         } else {
             $('.btn-next').addClass('disabled');
