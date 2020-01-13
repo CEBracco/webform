@@ -1,8 +1,18 @@
+/* summer theme */
+/* theme-color: "rgb(37,125,199)" */
 :root {
+    --color-primary: #00818e;
+    --color-primary-light: #a2f6ff;
+    --color-primary-accent: #00afc1;
+}
+
+/* autumn theme */
+/* theme-color: "rgb(216, 124, 46)" */
+/* :root {
     --color-primary: #c17300;
     --color-primary-light: #ffd69a;
     --color-primary-accent: #db8200;
-}
+} */
 
 html, body {
     background-color: #F0EFE7;

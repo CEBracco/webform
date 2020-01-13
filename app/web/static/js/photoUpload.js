@@ -27,7 +27,7 @@ $(document).ready(function(){
                 <span class="title"><span data-dz-name></span></span>
                 <p class="details" data-dz-size></p>
                 <a class="secondary-content btn-remove" style="cursor:pointer;" data-dz-remove><i class="material-icons">clear</i></a>
-                <div class="ldBar label-center secondary-content" data-preset="circle" data-stroke-trail-width="15" data-stroke="#c17300" data-fill="#c17300" data-fill-background-extrude="8" data-fill-background="#d0d0d0" data-stroke-width="15" style="width:5%;height:auto;min-width: 40px;"></div>
+                <div class="ldBar label-center secondary-content" data-preset="circle" data-stroke-trail-width="15" data-stroke="var(--color-primary)" data-fill="var(--color-primary)" data-fill-background-extrude="8" data-fill-background="#d0d0d0" data-stroke-width="15" style="width:5%;height:auto;min-width: 40px;"></div>
                 <div class="secondary-content success-mark" style="cursor:default;display:none;"><i class="material-icons">cloud_done</i></div>
                 <div class="secondary-content error-mark" style="cursor:default;display:none;"><i class="material-icons required">error_outline</i></div>
             </li>
@@ -174,7 +174,7 @@ function showError() {
             text: 'Ups! parece que ocurrió un error al subir las fotos. Controlá tu conexión a internet y recarga la página para intentarlo nuevamente.',
             pos: 'bottom-center',
             actionText: 'Recargar',
-            actionTextColor: '#c17300',
+            actionTextColor: 'var(--color-primary)',
             duration: 0,
             onActionClick: function () {
                 window.location.reload(true);
