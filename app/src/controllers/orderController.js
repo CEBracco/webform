@@ -3,6 +3,7 @@ const db = global.db;
 const CryptoUtils = require('@appSrc/utils/cryptoUtils');
 const NotificationBroker = require('@appSrc/notification/notificationBroker');
 const OrderPhotosUtils = require('@appSrc/utils/orderPhotosUtils');
+const MercadoPagoUtils = require('@appSrc/utils/mercadopagoUtils');
 const prefix = '/order';
 
 global.server.app.post(prefix + '/create', function (req, res) {
@@ -131,28 +132,19 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
                 NotificationBroker.sendNewOrderNotification(updatedOrder);
             }
             OrderPhotosUtils.cleanTempPhotos(updatedOrder.hash)
-            res.send(APIResponse.ok({ completeUrl: getCompleteUrl(updatedOrder) }));
-            res.end();
+            getCompleteUrl(updatedOrder,function(url) {
+                res.send(APIResponse.ok({ completeUrl: url }));
+                res.end();
+            })
         });
     })
 });
 
-function getCompleteUrl(order) {
+function getCompleteUrl(order, complete) {
     var paymentLink = '/order/completed';
     if (order.deliveryMethod == 'shipping' || order.paymentMethod == 'mercadopago') {
-        var paymentLinks = order.Product.paymentLink.split(",");
-        if (order.Text.Typography.price > 0 && order.Background.price > 0) {
-            paymentLink = paymentLinks[2];
-        } else {
-            if (order.Text.Typography.price > 0 || order.Background.price > 0) {
-                paymentLink = paymentLinks[1];
-            } else {
-                paymentLink = paymentLinks[0];            
-            }
-        }
-        if (!paymentLink && paymentLinks[0]) {
-            paymentLink = paymentLinks[0];
-        }
+        MercadoPagoUtils.getPaymentLink(order,complete)
+    } else {
+        complete(paymentLink)
     }
-    return paymentLink
 }

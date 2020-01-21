@@ -12,6 +12,10 @@ class Config {
   getBoolean(key) {
     return repository.getBoolean(key);
   }
+  
+  getObject(key) {
+    return repository.getObject(key);
+  }
 }
 
 module.exports = new Config()

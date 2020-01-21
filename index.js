@@ -17,6 +17,7 @@ function loadControllers() {
     require('@appSrc/controllers/checkoutController');
     require('@appSrc/controllers/imageController');
     require('@appSrc/controllers/ordersListController');
+    require('@appSrc/controllers/mercadopagoController');
 }
 
 function loadNotificationBroker() {
