@@ -28,7 +28,7 @@ function getPaymentLink(order, complete) {
         },
         expires: true,
         expiration_date_to: getExpirationTime(),
-        notification_url: config.get('MERCADOPAGO_WEBHOOK')
+        notification_url: `${config.get('HOST_URL')}/mercadopago/payment_notification`
     }).then(function (mpResponse) {
         savePreference(mpResponse, order)
         complete(mpResponse.response.init_point);
