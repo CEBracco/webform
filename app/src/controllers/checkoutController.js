@@ -1,7 +1,7 @@
 const db = global.db;
 var config = require('@localModules/config/Config.js');
 var path = require('path');
-var fs = require('fs');
+var fs = require('fs-extra');
 var AdmZip = require('adm-zip');
 const OrderPhotosUtils = require('@appSrc/utils/orderPhotosUtils');
 
@@ -41,18 +41,31 @@ global.server.app.get(['/checkout/:authToken/:orderId/download'], function (req,
                 if (!order) {
                     res.redirect('/');
                 }
-                const zip = new AdmZip();
-    
-                OrderPhotosUtils.getUploadedPhotos(orderId).forEach(filename => {
-                    zip.addLocalFile(path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}/${filename}`));
+
+                const zipPath = config.get('ZIP_PATH');
+                const zipName = `${orderId}_${order.name != null ? order.name : ''}-${order.surname != null ? order.surname : ''}.zip`;
+                const destinationPath = path.join(zipPath, zipName);
+                const sourcePath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}`);
+                fs.mkdirp(zipPath, function(err) {
+                    if (err) {
+                        res.redirect('/');
+                        res.end();
+                    } else {
+                        if (fs.pathExistsSync(destinationPath)) {
+                            res.download(destinationPath, zipName);
+                        } else {
+                            var zip = require('bestzip');
+                            zip({
+                                source: '*',
+                                destination: destinationPath,
+                                cwd: sourcePath
+                            }).then(function () {
+                                res.download(destinationPath, zipName);
+                            });
+                        }
+                    }
                 });
-    
-                const downloadName = `${Date.now()}_${order.name != null ? order.name : ''}-${order.surname != null ? order.surname : ''}.zip`;
-                const data = zip.toBuffer();
-                res.set('Content-Type', 'application/octet-stream');
-                res.set('Content-Disposition', `attachment; filename=${downloadName}`);
-                res.set('Content-Length', data.length);
-                res.send(data);
+
             });
         } catch (e) {
             res.redirect('/');

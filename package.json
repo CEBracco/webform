@@ -13,7 +13,7 @@
   "author": "cbracco",
   "license": "ISC",
   "dependencies": {
-    "adm-zip": "^0.4.13",
+    "bestzip": "^2.1.5",
     "dotenv": "^8.1.0",
     "dotenv-cli": "^2.0.1",
     "ejs": "^2.6.2",
