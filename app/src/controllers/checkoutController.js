@@ -2,7 +2,6 @@ const db = global.db;
 var config = require('@localModules/config/Config.js');
 var path = require('path');
 var fs = require('fs-extra');
-var AdmZip = require('adm-zip');
 const OrderPhotosUtils = require('@appSrc/utils/orderPhotosUtils');
 
 
