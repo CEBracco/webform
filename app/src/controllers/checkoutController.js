@@ -53,15 +53,22 @@ global.server.app.get(['/checkout/:authToken/:orderId/download'], function (req,
                         if (fs.pathExistsSync(destinationPath)) {
                             res.download(destinationPath, zipName);
                         } else {
-                            var zip = require('bestzip');
-                            zip({
-                                source: '*',
-                                destination: destinationPath,
-                                cwd: sourcePath
-                            }).then(function () {
-                                res.download(destinationPath, zipName);
-                            });
+                            require('child_process').execSync(`zip -r ${destinationPath} *`, { cwd: sourcePath })
+                            res.download(destinationPath, zipName);
                         }
+                        res.end();
+                        // if (fs.pathExistsSync(destinationPath)) {
+                        //     res.download(destinationPath, zipName);
+                        // } else {
+                        //     var zip = require('bestzip');
+                        //     zip({
+                        //         source: '*',
+                        //         destination: destinationPath,
+                        //         cwd: sourcePath
+                        //     }).then(function () {
+                        //         res.download(destinationPath, zipName);
+                        //     });
+                        // }
                     }
                 });
 
