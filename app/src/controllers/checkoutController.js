@@ -42,7 +42,7 @@ global.server.app.get(['/checkout/:authToken/:orderId/download'], function (req,
                 }
 
                 const zipPath = config.get('ZIP_PATH');
-                const zipName = `${orderId}_${order.name != null ? order.name : ''}-${order.surname != null ? order.surname : ''}.zip`;
+                const zipName = `${orderId}_${order.name != null ? order.name.replace(/\ |\/|\./g, '') : ''}-${order.surname != null ? order.surname.replace(/\ |\/|\./g, '') : ''}.zip`;
                 const destinationPath = path.join(zipPath, zipName);
                 const sourcePath = path.join(config.get('PHOTO_UPLOAD_PATH'), `/${orderId}`);
                 fs.mkdirp(zipPath, function(err) {
@@ -53,22 +53,15 @@ global.server.app.get(['/checkout/:authToken/:orderId/download'], function (req,
                         if (fs.pathExistsSync(destinationPath)) {
                             res.download(destinationPath, zipName);
                         } else {
-                            require('child_process').execSync(`zip -r ${destinationPath} *`, { cwd: sourcePath })
-                            res.download(destinationPath, zipName);
+                            var zip = require('bestzip');
+                            zip({
+                                source: '*',
+                                destination: destinationPath,
+                                cwd: sourcePath
+                            }).then(function () {
+                                res.download(destinationPath, zipName);
+                            });
                         }
-                        res.end();
-                        // if (fs.pathExistsSync(destinationPath)) {
-                        //     res.download(destinationPath, zipName);
-                        // } else {
-                        //     var zip = require('bestzip');
-                        //     zip({
-                        //         source: '*',
-                        //         destination: destinationPath,
-                        //         cwd: sourcePath
-                        //     }).then(function () {
-                        //         res.download(destinationPath, zipName);
-                        //     });
-                        // }
                     }
                 });
 
