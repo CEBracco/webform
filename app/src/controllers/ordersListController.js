@@ -4,6 +4,8 @@ var config = require('@localModules/config/Config.js');
 let statuses = ['pending', 'design', 'print', 'packaging', 'ready', 'delivered']
 let defaultStatusesActive = ['pending', 'design', 'print', 'packaging', 'ready']
 
+var cors = require('cors')
+
 global.server.app.get(['/ordersList/:authToken'], function (req, res) {
     var authToken = req.params.authToken;
     if (authToken == config.get('CHECKOUT_TOKEN')) {
@@ -31,7 +33,7 @@ global.server.app.get(['/ordersList/:authToken'], function (req, res) {
     }
 });
 
-global.server.app.post('/order/setStatus', function (req, res) {
+global.server.app.post('/order/setStatus', cors(), function (req, res) {
     if (!req.body.orderId || !req.body.status || !req.body.authToken) {
         res.send(APIResponse.error(null, 'Debes completar todos los datos!'));
         res.end();
@@ -52,7 +54,7 @@ global.server.app.post('/order/setStatus', function (req, res) {
     }
 });
 
-global.server.app.post(['/order/list'], function (req, res) {
+global.server.app.post(['/order/list'], cors, function (req, res) {
     if (!req.body.authToken) {
         res.send(APIResponse.error(null, 'Debes completar todos los datos!'));
         res.end();
