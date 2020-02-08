@@ -54,7 +54,7 @@ global.server.app.post('/order/setStatus', cors(), function (req, res) {
     }
 });
 
-global.server.app.post(['/order/list'], cors, function (req, res) {
+global.server.app.post(['/order/list'], cors(), function (req, res) {
     if (!req.body.authToken) {
         res.send(APIResponse.error(null, 'Debes completar todos los datos!'));
         res.end();
