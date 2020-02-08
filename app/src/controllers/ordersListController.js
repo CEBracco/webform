@@ -33,6 +33,7 @@ global.server.app.get(['/ordersList/:authToken'], function (req, res) {
     }
 });
 
+global.server.app.options('/order/setStatus', cors())
 global.server.app.post('/order/setStatus', cors(), function (req, res) {
     if (!req.body.orderId || !req.body.status || !req.body.authToken) {
         res.send(APIResponse.error(null, 'Debes completar todos los datos!'));
@@ -54,6 +55,7 @@ global.server.app.post('/order/setStatus', cors(), function (req, res) {
     }
 });
 
+global.server.app.options('/order/list', cors())
 global.server.app.post(['/order/list'], cors(), function (req, res) {
     if (!req.body.authToken) {
         res.send(APIResponse.error(null, 'Debes completar todos los datos!'));
