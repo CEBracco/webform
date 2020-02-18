@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flor Barrau Fotografía</title>
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.ico" />
+    <meta name="theme-color" content="rgb(37,125,199)">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="/lib/pace/pace-theme.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="background-header"></div>
+    <div class="content">
+        <div class="row">
+            <div class="col s12 col m10 offset-m1">
+                <div class="card card-base">
+                    <div class="card-content">
+                        <h4>Productos</h4>
+                        <div id="cellphone-products-list" class="row margin-left-0 margin-right-0">
+                            <!-- dinamically loaded -->
+                        </div>
+                        <div class="row hide-on-small-only">
+                            <div class="col s12">
+                                <table id="products-table" class="striped highlight">
+                                    <thead>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Producto</th>
+                                            <th class="right-align">Precio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- dinamically loaded -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn btn-floating btn-large btn-primary btn-add-product">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+</body>
+
+<!-- Modal Structure -->
+<div id="product-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h5 class="title">Agregar Producto</h5>
+        <div class="row">
+            <div class="input-field col s12 m6 margin-top-0">
+                <h6 class="margin-bottom-0">Nombre<span class="required">*</span></h6>
+                <input name="name" placeholder="Pack Polaroids (9x10,5cm) - 10 Fotos" type="text" class="validate" required>
+            </div>
+            <div class="input-field col s12 m6 margin-top-0">
+                <h6 class="margin-bottom-0">Precio<span class="required">*</span></h6>
+                <input name="price" placeholder="145" type="number" class="validate" min="0" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6 margin-top-0">
+                <h6 class="margin-bottom-0">Cantidad de Fotos<span class="required">*</span></h6>
+                <input name="acceptedPhotos" placeholder="10" type="number" class="validate" min="0" required>
+            </div>
+            <div class="input-field col s12 m6 margin-top-0">
+                <h6 class="margin-bottom-0">Categoria<span class="required">*</span></h6>
+                <select name="category">
+                    <option value="" selected>Ninguno</option>
+                    <% categories.forEach(function(category, productIndex){ %>
+                        <option value="<%= category.id %>"><%= category.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="image">
+        <div class="row">
+            <div class="col s12">
+                <form enctype="multipart/form-data" class="putImages">
+                    <div class="file-field input-field">
+                        <div class="btn btn-primary">
+                            <span>Elegir Foto</span>
+                            <input id="photo-input" name="photo" type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a class="btn waves-effect waves-light btn-primary btn-save-product">Guardar</a>
+    </div>
+</div>
+
+<div id="product-template" class="hide">
+    <table>
+        <tbody>
+            <tr>
+                <td><div class="product-image" style="background-image: url('{{ product.image }}');"></div></td>
+                <td>{{ product.name }}</td>
+                <td class="right-align">${{ product.price }}</td>
+                <td class="right-align">
+                    <span class="switch" title="Habilitado/Deshabilitado">
+                        <label>
+                            <input type="checkbox" {{#product.enabled}}checked{{&#47;product.enabled}} onChange="toggleProductActivation({{ product.id }}, this)">
+                            <span class="lever"></span>
+                        </label>
+                    </span>
+                    <a title="Editar" data-product-id="{{ product.id }}" class="waves-effect waves-light-3 black-text btn-flat" onclick="editProduct({{ product.id }})">
+                        <i class="material-icons">edit</i></a>
+                    <a title="Eliminar" data-product-id="{{ product.id }}" class="waves-effect waves-light-3 black-text btn-flat" onclick="onDeleteProductPressed({{ product.id }})">
+                        <i class="material-icons required">delete</i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="cellphone-product-template" class="hide">
+    <div class="col s12 hide-on-med-and-up product-cellphone-item">
+        <div class="product-item">
+            <p><b>Nombre:</b> {{ product.name }}</p>
+            <p><b>Precio:</b> ${{ product.price }}</p>
+            <hr>
+            <div class="container">
+                <div class="row center-align margin-bottom-0" style="display: flex;">
+                    <div class="col s4 valign-wrapper">
+                        <span class="switch" title="Habilitado/Deshabilitado">
+                            <label>
+                                <input type="checkbox" {{#product.enabled}}checked{{&#47;product.enabled}}
+                                    onChange="toggleProductActivation({{ product.id }}, this)">
+                                <span class="lever"></span>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="col s4">
+                        <a title="Editar" data-product-id="{{ product.id }}" class="waves-effect waves-light-3 black-text btn-flat"
+                            onclick="editProduct({{ product.id }})">
+                            <i class="material-icons">edit</i></a>
+                    </div>
+                    <div class="col s4">
+                        <a title="Eliminar" data-product-id="{{ product.id }}" class="waves-effect waves-light-3 black-text btn-flat"
+                            onclick="onDeleteProductPressed({{ product.id }})">
+                            <i class="material-icons required">delete</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirm-modal" class="modal">
+    <div class="modal-content">
+        <h6>Borrar Producto</h6>
+        <p>¿Estás seguro de borrar este producto?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a class="btn waves-effect waves-light btn-primary btn-delete-product">Borrar</a>
+    </div>
+</div>
+
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/mustache.js/mustache.min.js"></script>
+<script src="/lib/materialize/js/materialize.min.js"></script>
+<script src="/lib/pace/pace.min.js"></script>
+<script src="/js/base.js"></script>
+<script>
+    var checkoutToken = '<%= checkoutToken %>';
+</script>
+<script src="/js/services/adminProductService.js"></script>
+<script src="/js/productsList.js"></script>
+
+</html>

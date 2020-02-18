@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     image: DataTypes.STRING,
     acceptedPhotos: DataTypes.INTEGER,
-    paymentLink: DataTypes.STRING
+    enabled: DataTypes.BOOLEAN
   }, {});
   Product.associate = function(models) {
     Product.belongsTo(models.Group);
