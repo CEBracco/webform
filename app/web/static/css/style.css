@@ -201,6 +201,14 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     margin-right: 0px !important; 
 }
 
+.border-top-2 {
+    border-top: 1px solid rgba(160,160,160,0.2);
+}
+.border-sides-2 {
+    border-left: 1px solid rgba(160,160,160,0.2);
+    border-right: 1px solid rgba(160,160,160,0.2);
+}
+
 /* photo upload */
 .fullscreen-container {
     min-height: 30vh;
@@ -282,6 +290,9 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+#cellphone-products-list>.product-cellphone-item .product-item {
+    border-bottom: 1px solid rgba(160,160,160,0.2);
+}
 .collection-filter .collapsible-header {
     background-color: #f5f5f5; 
     padding: 10px;
@@ -316,13 +327,16 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 table.highlight>tbody>tr:hover {
     background-color: rgba(230,230,230,1);
 }
-#cellphone-products-list>.product-cellphone-item:nth-child(odd),
 #cellphone-orders-list>.order-cellphone-item:nth-child(odd) {
     background-color: rgba(242,242,242,0.5);
 }
 #cellphone-products-list,
 #cellphone-orders-list {
     margin-top: 15px;
+}
+#cellphone-products-list>.product-cellphone-item {
+    background-color: rgba(242,242,242,0.5);
+    margin-bottom: 5px;
 }
 
 /* statuses  */
@@ -379,6 +393,17 @@ table.highlight>tbody>tr:hover {
 #products-table tr td:last-child{
     width:1%;
     white-space:nowrap;
+}
+.image-preview {
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+.image-preview:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
 }
 
 /*Animations*/

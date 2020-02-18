@@ -114,12 +114,15 @@ function getFormData() {
 
 function setFormData(product) {
     selectedProductId = product.id
-    $("input[name='name']").val(product.name),
-    $("input[name='price']").val(product.price),
-    $("input[name='acceptedPhotos']").val(product.acceptedPhotos),
-    $("input[name='image']").val(product.image),
-    $("select[name='category']").val(product.GroupId)
+    $("input[name='name']").val(product.name);
+    $("input[name='price']").val(product.price);
+    $("input[name='acceptedPhotos']").val(product.acceptedPhotos);
+    $("input[name='image']").val(product.image);
+    $("select[name='category']").val(product.GroupId);
     $('select').formSelect();
+    
+    $(".image-preview").removeClass('hide');
+    $(".image-preview").css('background-image', `url("${product.image}")`);
 }
 
 function resetForm() {
@@ -130,6 +133,7 @@ function resetForm() {
         acceptedPhotos: '',
         image: ''
     })
+    $(".image-preview").addClass('hide');
     $('input[name^="photo"]').val(''); 
 }
 

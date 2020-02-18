@@ -99,6 +99,11 @@
                 </form>
             </div>
         </div>
+        <div class="row margin-bottom-0">
+            <div class="col s12 m4 offset-m4">
+                <div class="image-preview hide"></div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
@@ -133,11 +138,18 @@
 <div id="cellphone-product-template" class="hide">
     <div class="col s12 hide-on-med-and-up product-cellphone-item">
         <div class="product-item">
-            <p><b>Nombre:</b> {{ product.name }}</p>
-            <p><b>Precio:</b> ${{ product.price }}</p>
-            <hr>
             <div class="container">
-                <div class="row center-align margin-bottom-0" style="display: flex;">
+                <div class="row margin-bottom-0">
+                    <div class="col s3 center-align">
+                        <div class="product-image" style="background-image: url('{{ product.image }}');"></div>
+                    </div>
+                    <div class="col s9">
+                        <p><b>Nombre:</b> {{ product.name }}</p>
+                        <p><b>Precio:</b> ${{ product.price }}</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row center-align margin-bottom-0 border-top-2" style="display: flex;">
                     <div class="col s4 valign-wrapper">
                         <span class="switch" title="Habilitado/Deshabilitado">
                             <label>
@@ -147,7 +159,7 @@
                             </label>
                         </span>
                     </div>
-                    <div class="col s4">
+                    <div class="col s4 border-sides-2">
                         <a title="Editar" data-product-id="{{ product.id }}" class="waves-effect waves-light-3 black-text btn-flat"
                             onclick="editProduct({{ product.id }})">
                             <i class="material-icons">edit</i></a>
