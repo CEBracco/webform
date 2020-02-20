@@ -4,6 +4,7 @@
     --color-primary: #00818e;
     --color-primary-light: #a2f6ff;
     --color-primary-accent: #00afc1;
+    --color-primary-grey: #84b4c7
 }
 
 /* autumn theme */
@@ -109,6 +110,14 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 [type="checkbox"].filled-in:checked+span:not(.lever):after {
     background-color: var(--color-primary);
     border: 2px solid var(--color-primary);
+}
+
+/* Switch */
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: var(--color-primary-grey);
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: var(--color-primary);
 }
 
 .ldBar-label {
