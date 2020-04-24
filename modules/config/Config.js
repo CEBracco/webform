@@ -14,7 +14,11 @@ class Config {
   }
   
   getObject(key) {
-    return repository.getObject(key);
+    try {
+      return repository.getObject(key);
+    } catch (error) {
+      return null;
+    }
   }
 }
 
