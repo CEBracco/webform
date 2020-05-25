@@ -1,11 +1,18 @@
+:root {
+    --color-primary: #865569;
+    --color-primary-light: #ce8da7;
+    --color-primary-accent: #b7587d;
+    --color-primary-grey: #84b4c7
+}
+
 /* summer theme */
 /* theme-color: "rgb(37,125,199)" */
-:root {
+/* :root {
     --color-primary: #00818e;
     --color-primary-light: #a2f6ff;
     --color-primary-accent: #00afc1;
     --color-primary-grey: #84b4c7
-}
+} */
 
 /* autumn theme */
 /* theme-color: "rgb(216, 124, 46)" */
@@ -21,7 +28,7 @@ html, body {
 .background-header {
     height: 35vh;
     width: 100%;
-    background-image: url("/img/banner.jpg");
+    background-image: url("/img/banner-6.jpg");
     background-size: cover;
     background-position: center;
     position: absolute;
