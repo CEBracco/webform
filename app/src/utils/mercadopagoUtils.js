@@ -16,11 +16,11 @@ function getPaymentLink(order, complete) {
                 unit_price: OrderUtils.getElectronicPaymentPrice(order)
             },
         ],
-        shipments: {
-            mode: 'me2',
-            local_pickup: true,
-            dimensions: '20x5x15,200'
-        },
+        // shipments: {
+        //     mode: 'me2',
+        //     local_pickup: true,
+        //     dimensions: '20x5x15,200'
+        // },
         back_urls: {
             success: `${config.get('HOST_URL')}/order/completed`,
             pending: `${config.get('HOST_URL')}/order/pending`,
