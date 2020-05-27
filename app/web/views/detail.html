@@ -56,7 +56,7 @@
                                 <p>
                                     <label>
                                         <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="deliveryPoint" onchange="processDeliveryMethod()"
-                                        <% if(order && order.deliveryMethod == 'deliveryPoint') { %> checked <% } %>>
+                                        <% if(order && order.deliveryMethod == 'deliveryPoint') { %> checked <% } %>      disabled>
                                         <span>Lo retiro en un punto de entrega (Los mismos se corresponden con las estaciones del tren Roca)</span>
                                     </label>
                                 </p>
@@ -86,7 +86,7 @@
                                 <p>
                                     <label>
                                         <input class="with-gap primary-color" name="paymentMethod" type="radio" value="cash" onchange="processPaymentMethod()"
-                                        <% if(order && order.paymentMethod == 'cash') { %> checked <% } %>>
+                                        <% if(order && order.paymentMethod == 'cash') { %> checked <% } %>                 disabled>
                                         <span>Efectivo</span>
                                     </label>
                                 </p>

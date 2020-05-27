@@ -12,6 +12,10 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         ]
     }).then(order => {
         checkOrderAndRedirectOnFail(order, res);
+        // disable deliveryPoint
+        order.deliveryMethod = 'shipping'
+        order.paymentMethod = 'mercadopago'
+        // end
         res.render("detail", { order: order, dataIsValid: validPaymentAndDeliverData(order), deliveryPoints: deliveryPoints });
         res.end();
     });
