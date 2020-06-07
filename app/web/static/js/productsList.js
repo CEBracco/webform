@@ -88,6 +88,7 @@ function init() {
 function validCustomerInfo(data) {
     return (data.name != null && data.name.trim() != '')
         && (data.price != null && data.price.trim() != '')
+        && (data.discount != null && data.discount.trim() != '')
         && (data.acceptedPhotos != null && data.acceptedPhotos.trim() != '')
 }
 
@@ -106,6 +107,7 @@ function getFormData() {
         id: selectedProductId,
         name: $("input[name='name']").val(),
         price: $("input[name='price']").val(),
+        discount: $("input[name='discount']").val(),
         acceptedPhotos: $("input[name='acceptedPhotos']").val(),
         image: $("input[name='image']").val(),
         groupId: $("select[name='category']").val()
@@ -116,6 +118,7 @@ function setFormData(product) {
     selectedProductId = product.id
     $("input[name='name']").val(product.name);
     $("input[name='price']").val(product.price);
+    $("input[name='discount']").val(product.discount ? product.discount : 0);
     $("input[name='acceptedPhotos']").val(product.acceptedPhotos);
     $("input[name='image']").val(product.image);
     $("select[name='category']").val(product.GroupId);
@@ -123,6 +126,7 @@ function setFormData(product) {
     
     $(".image-preview").removeClass('hide');
     $(".image-preview").css('background-image', `url("${product.image}")`);
+    calculateDiscount();
 }
 
 function resetForm() {
@@ -130,6 +134,7 @@ function resetForm() {
         id: null,
         name: '',
         price: '',
+        discount: '',
         acceptedPhotos: '',
         image: ''
     })
@@ -178,4 +183,19 @@ function saveProductPhoto(productId) {
 
 function hasPhotoToUpload() {
     return $('input[name^="photo"]')[0].files.length > 0;
+}
+
+function calculateDiscount() {
+    var price = $("input[name='price']").val();
+    var discount = $("input[name='discount']").val();
+    if (price && price > 0 && discount > 0) {
+        var realPrice = price - (price * discount) / 100;
+        $(".input-field-discount .helper-text").html(`Precio con descuento: $${Math.floor(realPrice / 5) * 5}`);
+    } else {
+        if (price) {
+            $(".input-field-discount .helper-text").html(`Precio con descuento: $${price}`);
+        } else {
+            $(".input-field-discount .helper-text").html("");
+        }
+    }
 }

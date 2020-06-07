@@ -9,6 +9,7 @@
     <meta name="theme-color" content="rgb(37,125,199)">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/lib/animate.css/animate.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link href="/lib/pace/pace-theme.css" rel="stylesheet" />
 </head>
@@ -28,15 +29,26 @@
                             <div class="col s6 m4 l3">
                                 <div class="selectable-item fix-height">
                                     <div class="card <% if(order && order.ProductId == product.id ) { %>selected<% } %>">
-                                        <div class="image-container" 
-                                            style="background-image: url('<%= product.image %>')">
+                                        <div class="image-container" style="background-image: url('<%= product.image %>')">
+                                            <% if(product.discount && product.discount > 0 ) { %>
+                                            <p class="in-image-discount hide-on-small-only">
+                                                <i class="material-icons animated animated-infinite-jello-2">local_offer</i> <span><%= product.discount %>% OFF</span>
+                                            </p>
+                                            <p class="in-image-discount hide-on-med-and-up center-align">
+                                                <i class="material-icons animated animated-infinite-jello-2">local_offer</i> <span><%= product.discount %>% OFF</span>
+                                            </p>
+                                            <% } %>
                                         </div>
                                     </div>
                                     <p>
                                         <label>
                                             <input class="with-gap primary-color" name="product" type="radio" value="<%= product.id %>" 
                                             <% if(order && order.ProductId == product.id ) { %>checked <% } %>/>
-                                            <span><%= product.name %> - $<%= product.price %></span>
+                                            <% if(product.discount && product.discount > 0 ) { %> 
+                                            <span><%= product.name %> - <span class="old-price">$<%= product.price %></span> <span class="discount-price">$<%= priceFunction(product) %></span></span>
+                                            <% } else { %>
+                                            <span><%= product.name %> - <span>$<%= priceFunction(product) %></span>
+                                            <% } %>
                                         </label>
                                     </p>
                                 </div>

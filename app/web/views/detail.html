@@ -29,7 +29,14 @@
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="center-align margin-bottom-0"><%= order.Product.name %></h5>
+                                <% if(order.Product.discount && order.Product.discount > 0 ) { %>
+                                <p class="center-align">
+                                    <span class="old-price">$<%= order.Product.price %></span> <span class="discount-price">$<%= getProductPrice(order.Product) %></span> <!-- <span class="discount-badge"><%= order.Product.discount %>% OFF</span> -->
+                                </p>
+                                <p class="center-align discount-badge-container"><span class="discount-badge"><%= order.Product.discount %>% OFF</span></p>
+                                <% } else { %>
                                 <p class="center-align">$<%= order.Product.price %></p>
+                                <% } %>
                             </div>
                         </div>
                         <div class="row file-uploader detail-items margin-bottom-0">
@@ -48,7 +55,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <h5 class="center-align">Total $<%= order.Product.price + order.Background.price + order.Text.Typography.price %></h5>
+                        <h5 class="center-align">Total $<%= getPrice(order) %></h5>
                         <br>
                         <div class="row">
                             <div class="col s12">

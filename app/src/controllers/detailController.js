@@ -1,4 +1,5 @@
 const db = global.db;
+var OrderUtils = require('@appSrc/utils/orderUtils');
 const deliveryPoints = ['Plaza Constitución', 'Quilmes', 'Berazategui', 'Ranelagh', 'La Plata']
 
 global.server.app.get(['/detail/:orderId'], function (req, res) {
@@ -16,7 +17,12 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         order.deliveryMethod = 'shipping'
         order.paymentMethod = 'mercadopago'
         // end
-        res.render("detail", { order: order, dataIsValid: validPaymentAndDeliverData(order), deliveryPoints: deliveryPoints });
+        res.render("detail", { 
+            order: order, dataIsValid: validPaymentAndDeliverData(order), 
+            deliveryPoints: deliveryPoints, 
+            getPrice: OrderUtils.getPrice,
+            getProductPrice: OrderUtils.getProductPrice 
+        });
         res.end();
     });
 });

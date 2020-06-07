@@ -1,5 +1,6 @@
 const db = global.db;
 var config = require('@localModules/config/Config.js');
+var OrderUtils = require('@appSrc/utils/orderUtils');
 
 global.server.app.get(['/:orderId?', '/index.html/:orderId?'], function (req, res) {
     var siteDisabledParams = config.getObject('SITE_DISABLED');
@@ -14,7 +15,7 @@ global.server.app.get(['/:orderId?', '/index.html/:orderId?'], function (req, re
             order: [[db.Group, 'order'], ['price']] 
         }).then(products => {
             db.Order.findOne({ where: { hash: orderId } }).then(order => {
-                res.render("product", { products: products, order: order });
+                res.render("product", { products: products, order: order, priceFunction: OrderUtils.getProductPrice });
                 res.end();
             });
         })

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --require dotenv/config index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon --require dotenv/config index.js",
     "db:create": "npx dotenv sequelize db:create",
     "db:drop": "npx dotenv sequelize db:drop",
     "db:migrate": "npx dotenv sequelize db:migrate"
@@ -38,5 +38,8 @@
   },
   "_moduleDirectories": [
     "modules"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }

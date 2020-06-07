@@ -140,6 +140,7 @@ global.server.app.post(['/product/createOrEdit'], function (req, res) {
                 product.name = receivedProduct.name,
                 product.acceptedPhotos = receivedProduct.acceptedPhotos,
                 product.price = receivedProduct.price
+                product.discount = receivedProduct.discount
                 product.image = receivedProduct.image
                 product.save().then(persistedProduct => {
                     receivedProduct.groupId = (receivedProduct.groupId != null && receivedProduct.groupId.trim() != '') ? receivedProduct.groupId : null

@@ -63,9 +63,14 @@
                 <h6 class="margin-bottom-0">Nombre<span class="required">*</span></h6>
                 <input name="name" placeholder="Pack Polaroids (9x10,5cm) - 10 Fotos" type="text" class="validate" required>
             </div>
-            <div class="input-field col s12 m6 margin-top-0">
+            <div class="input-field col s12 m3 margin-top-0">
                 <h6 class="margin-bottom-0">Precio<span class="required">*</span></h6>
-                <input name="price" placeholder="145" type="number" class="validate" min="0" required>
+                <input name="price" placeholder="145" type="number" class="validate" min="0" required onkeyup="calculateDiscount()">
+            </div>
+            <div class="input-field col s12 m3 margin-top-0 input-field-discount">
+                <h6 class="margin-bottom-0">Descuento(%) <span class="required">*</span></h6>
+                <input name="discount" placeholder="50" type="number" class="validate" min="0" required onkeyup="calculateDiscount()">
+                <span class="helper-text"></span>
             </div>
         </div>
         <div class="row">
