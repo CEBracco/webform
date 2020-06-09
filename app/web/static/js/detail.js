@@ -46,7 +46,11 @@ $(document).ready(function () {
 
     // addres form
     $(".form-address input").on('keyup', function () {
-        isValidAddress() ? $('.btn-next').removeClass('disabled') : $('.btn-next').addClass('disabled');
+        if (isValidAddress() && $("input[name='paymentMethod']:checked").length > 0 && isValidDeliveryPoint()) {
+            $('.btn-next').removeClass('disabled')
+        } else {
+            $('.btn-next').addClass('disabled');
+        }
     })
 
     $('select').formSelect();
