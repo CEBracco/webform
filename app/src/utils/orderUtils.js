@@ -23,9 +23,48 @@ function getProductPrice(product) {
     return Math.floor(price / 5) * 5; //round to next multiple of 5
 }
 
+function getAddress(order) {
+    var emptyAddress = { street: null, number: null, city: null, state: null }
+    try {
+        if (order.address && order.address != '') {
+            return JSON.parse(order.address)
+        } else {
+            return emptyAddress
+        }
+    } catch (error) {
+        return emptyAddress
+    }
+}
+
+function isValidAddress(order) {
+    if (order.address && order.address != '') {
+        var objectAddress = getAddress(order)
+        for (const key in objectAddress) {
+            if (objectAddress.hasOwnProperty(key)) {
+                if (objectAddress[key] == null || objectAddress[key] == '') {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    return false
+}
+
+function getHumanReadableAddress(order) {
+    var objectAddress = getAddress(order)
+    if (objectAddress) {
+        return `${objectAddress.street} ${objectAddress.number}, ${objectAddress.city}, ${objectAddress.state}`
+    }
+    return ''
+}
+
 module.exports = {
     getName: getName,
     getPrice: getPrice,
     getElectronicPaymentPrice: getElectronicPaymentPrice,
-    getProductPrice: getProductPrice
+    getProductPrice: getProductPrice,
+    getAddress: getAddress,
+    isValidAddress: isValidAddress,
+    getHumanReadableAddress: getHumanReadableAddress
 }

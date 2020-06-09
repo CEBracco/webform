@@ -1,4 +1,5 @@
 var config = require('@localModules/config/Config');
+var OrderUtils = require('@appSrc/utils/orderUtils');
 
 function newOrderNotification(order){
   return `<b>Tenés un nuevo pedido!</b> 🎉
@@ -6,7 +7,7 @@ function newOrderNotification(order){
 Producto: <i>${order.Product.name}</i>
 Fondo: <i>${order.Background.name}</i>
 Tipografía: <i>${order.Text.Typography.name}</i>
-<b>Total: $${order.Product.price + order.Background.price + order.Text.Typography.price}</b>
+<b>Total: $${OrderUtils.getPrice(order)}</b>
 
 Forma de Entrega: <i>${translateDeliveryMethod(order.deliveryMethod, order.deliveryPoint)}</i>
 Método de pago: <i>${translatePaymentMethod(order.paymentMethod)}</i>
@@ -15,6 +16,9 @@ Método de pago: <i>${translatePaymentMethod(order.paymentMethod)}</i>
 ${capitalizeFirstLetter(order.name)} ${capitalizeFirstLetter(order.surname)}
 ${order.cellphone}
 ${order.instagramUser ? order.instagramUser : ''}
+
+<b>Domicilio</b>
+${OrderUtils.getHumanReadableAddress(order)}
 
 <a href="${config.get("HOST_URL")}/checkout/${config.get("CHECKOUT_TOKEN")}/${order.hash}">👉🏻 Ver detalle...</a>`;
 }

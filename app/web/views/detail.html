@@ -39,7 +39,7 @@
                                 <% } %>
                             </div>
                         </div>
-                        <div class="row file-uploader detail-items margin-bottom-0">
+                        <div class="row file-uploader detail-items margin-bottom-0 margin-right-0 margin-left-0 padding-right-0 padding-left-0">
                             <ul class="collection">
                                 <li class="collection-item avatar">
                                     <img class="circle responsive-img" src="<%= (order.Background.image && order.Background.image != '')? order.Background.image : '/img/default.jpg' %>">
@@ -57,13 +57,29 @@
                         </div>
                         <h5 class="center-align">Total $<%= getPrice(order) %></h5>
                         <br>
+                        <div class="card card-alert">
+                            <div class="card-content padding-top-10 padding-bottom-10">
+                                <p><b>IMPORTANTE</b></p>
+                                <p>
+                                    Debido a las medidas de aislamiento tomadas a causa del reciente brote de COVID-19 nos 
+                                    vimos obligados de realizar las entregas en la modalidad de envíos a domicilio a través de
+                                    distintos medios de transporte, dependiendo las distancias.<br>Te sugerimos consultes el 
+                                    apartado con información del precio de nuestros envíos que te facilitamos a continuación.
+                                </p>
+                                <br>
+                                <p class="center-align">
+                                    <a class="waves-effect waves-light-3 grey lighten-3 black-text btn modal-trigger" href="#alert-modal">Información de Envíos</a>
+                                </p>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col s12">
                                 <h6>Seleccioná la Forma de entrega</h6>
-                                <p>
+                                <!-- COVID Motorbike -->
+                                <!-- <p>
                                     <label>
                                         <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="deliveryPoint" onchange="processDeliveryMethod()"
-                                        <% if(order && order.deliveryMethod == 'deliveryPoint') { %> checked <% } %>      disabled>
+                                        <% if(order && order.deliveryMethod == 'deliveryPoint') { %> checked <% } %>        disabled>
                                         <span>Lo retiro en un punto de entrega (Los mismos se corresponden con las estaciones del tren Roca)</span>
                                     </label>
                                 </p>
@@ -77,14 +93,44 @@
                                         </select>
                                         <label>Seleccioná el punto de entrega</label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <p>
                                     <label>
                                         <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="shipping" onchange="processDeliveryMethod()"
                                         <% if(order && order.deliveryMethod == 'shipping') { %> checked <% } %>>
-                                        <span>Envío a través de MercadoEnvíos</span>
+                                        <!-- <span>Envío a través de MercadoEnvíos</span> -->
+                                        <!-- COVID Motorbike -->
+                                        <span>Envío a domicilio</span>
                                     </label>
                                 </p>
+                                <div class="card card-well">
+                                    <div class="card-content padding-top-10 padding-bottom-10 form-address">
+                                        <div class="row margin-bottom-0">
+                                            <div class="input-field col s12 m6 margin-top-0">
+                                                <h6 class="margin-bottom-0">Calle <span class="required">*</span></h6>
+                                                <input name="street" placeholder="Av. Mitre" type="text" class="validate" maxlength="36"
+                                                    <% if(addressObject.street) { %>value="<%= addressObject.street %>" <% } %> required>
+                                            </div>
+                                            <div class="input-field col s12 m6 margin-top-0">
+                                                <h6 class="margin-bottom-0">Número <span class="required">*</span></h6>
+                                                <input name="number" placeholder="1123" type="text" maxlength="36"
+                                                    <% if(addressObject.number) { %>value="<%= addressObject.number %>" <% } %> required>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom-0">
+                                            <div class="input-field col s12 m6 margin-top-0">
+                                                <h6 class="margin-bottom-0">Localidad <span class="required">*</span></h6>
+                                                <input name="city" placeholder="Quilmes" type="text" class="validate" maxlength="36"
+                                                    <% if(addressObject.city) { %>value="<%= addressObject.city %>" <% } %> required>
+                                            </div>
+                                            <div class="input-field col s12 m6 margin-top-0">
+                                                <h6 class="margin-bottom-0">Provincia <span class="required">*</span></h6>
+                                                <input name="state" placeholder="Buenos Aires" type="text" maxlength="36"
+                                                    <% if(addressObject.state) { %>value="<%= addressObject.state %>" <% } %> required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -93,7 +139,7 @@
                                 <p>
                                     <label>
                                         <input class="with-gap primary-color" name="paymentMethod" type="radio" value="cash" onchange="processPaymentMethod()"
-                                        <% if(order && order.paymentMethod == 'cash') { %> checked <% } %>                 disabled>
+                                        <% if(order && order.paymentMethod == 'cash') { %> checked <% } %>>
                                         <span>Efectivo</span>
                                     </label>
                                 </p>
@@ -101,7 +147,7 @@
                                     <label>
                                         <input class="with-gap primary-color" name="paymentMethod" type="radio" value="mercadopago" onchange="processPaymentMethod()"
                                         <% if(order && order.paymentMethod == 'mercadopago') { %> checked <% } %>>
-                                        <span>MercadoPago (Tarjeta de crédito/Debito)</span>
+                                        <span>Tarjetas de crédito / Debito / Rapipago / Pago Fácil (MercadoPago)</span>
                                     </label>
                                 </p>
                             </div>
@@ -110,6 +156,11 @@
                             <div class="col s12">
                                 <p class="mercadopago-alert required" <% if(order && order.paymentMethod != 'mercadopago') { %> style="display: none" <% } %>>Al pulsar finalizar seras redirigid@ al portal de MercadoPago para realizar tu pago y/o configurar tu envío.</p>
                             </div>                            
+                        </div>
+                        <div class="card card-alert">
+                            <div class="card-content padding-top-10 padding-bottom-10 center-align">
+                                <b>Recordá abonar en efectivo el precio del envío al personal de mensajería.</b>
+                            </div>
                         </div>
                     </div>
                     <div class="card-action right-align">
@@ -121,6 +172,77 @@
             </div>
         </div>
     </div>
+
+    <div id="alert-modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5 class="title">Información de Envíos</h5>
+            <p>
+                Ofrecemos envíos locales a GBA Zona Sur a través de motomensajería y a través de correo argentino
+                para el resto del país. Si en la siguiente tabla no encontras tu zona podés consultarnos en nuestras redes sociales ;)
+                <br>
+                Los precios a continuación se deben abonar en efectivo en el momento de la entrega del producto al personal de mensajería.
+                <br>
+                Si el producto es abonado de manera Online, ¡tenes descuento en el envío!
+            </p>
+            <div class="separator"></div>
+            <h6 class="center-align">Precios de envío</h6>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Localidad</th>
+                        <th>Pago Online</th>
+                        <th>Pago en Efectivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Berazategui Centro</td>
+                        <td>$100</td>
+                        <td>$150</td>
+                    </tr>
+                    <tr>
+                        <td>Ranelagh</td>
+                        <td>$100</td>
+                        <td>$150</td>
+                    </tr>
+                    <tr>
+                        <td>Villa España</td>
+                        <td>$100</td>
+                        <td>$150</td>
+                    </tr>
+                    <tr>
+                        <td>Hudson</td>
+                        <td>$150</td>
+                        <td>$225</td>
+                    </tr>
+                    <tr>
+                        <td>Plátanos</td>
+                        <td>$150</td>
+                        <td>$225</td>
+                    </tr>
+                    <tr>
+                        <td>Gutiérrez</td>
+                        <td>$180</td>
+                        <td>$270</td>
+                    </tr>
+                    <tr>
+                        <td>Quilmes Centro</td>
+                        <td>$200</td>
+                        <td>$350</td>
+                    </tr>
+                    <tr>
+                        <td>Quilmes Oeste</td>
+                        <td>$250</td>
+                        <td>$375</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+        </div>
+    </div>
+
 </body>
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/materialize/js/materialize.min.js"></script>

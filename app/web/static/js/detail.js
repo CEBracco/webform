@@ -3,8 +3,9 @@ $(document).ready(function () {
         var deliveryMethod = $("input[name='deliveryMethod']:checked").val();
         var deliveryPoint = $("select[name='deliveryPoint']").val();
         var paymentMethod = $("input[name='paymentMethod']:checked").val();
+        var address = getAddress();
         $('.btn-next').addClass('disabled');
-        OrderService.setDeliveryAndPayment({ orderId: orderId, deliveryMethod: deliveryMethod, paymentMethod: paymentMethod, deliveryPoint: deliveryPoint }, function (res) {
+        OrderService.setDeliveryAndPayment({ orderId: orderId, deliveryMethod: deliveryMethod, paymentMethod: paymentMethod, deliveryPoint: deliveryPoint, address: address }, function (res) {
             if (res.ok) {
                 window.location.href = res.data.completeUrl;
             }
@@ -17,7 +18,9 @@ $(document).ready(function () {
     $("input[name='deliveryMethod']").change(function () {
         processDeliveryPoint()
         if ($("input[name='paymentMethod']:checked").length > 0 && isValidDeliveryPoint()) {
-            $('.btn-next').removeClass('disabled');
+            if(isValidAddress()) { //remove without address
+                $('.btn-next').removeClass('disabled');
+            }
         } else {
             $('.btn-next').addClass('disabled');
         }
@@ -25,7 +28,9 @@ $(document).ready(function () {
 
     $("input[name='paymentMethod']").change(function () {
         if ($("input[name='deliveryMethod']:checked").length > 0 && isValidDeliveryPoint()) {
-            $('.btn-next').removeClass('disabled');
+            if (isValidAddress()) { //remove without address
+                $('.btn-next').removeClass('disabled');
+            }
         } else {
             $('.btn-next').addClass('disabled');
         }
@@ -39,7 +44,13 @@ $(document).ready(function () {
         }
     });
 
+    // addres form
+    $(".form-address input").on('keyup', function () {
+        isValidAddress() ? $('.btn-next').removeClass('disabled') : $('.btn-next').addClass('disabled');
+    })
+
     $('select').formSelect();
+    $('#alert-modal').modal()
 
     init();
 });
@@ -72,15 +83,42 @@ function processDeliveryPoint() {
 
 function isValidDeliveryPoint() {
     if ($("input[name='deliveryMethod']:checked").val() == "deliveryPoint") {
-        return $("select[name='deliveryPoint']").val() && $("select[name='deliveryPoint']").val() != ""
+        // return $("select[name='deliveryPoint']").val() && $("select[name='deliveryPoint']").val() != ""
+        // COVID Motorbike
+        return $("input[name='deliveryPoint']").val() && $("input[name='deliveryPoint']").val() != ""
     }
     return true
+}
+
+function isValidAddress() {
+    var isValid = true
+    $(".form-address input").each(function () {
+        if (!this.checkValidity()) {
+            isValid = false
+            return
+        }
+    })
+    return isValid 
+}
+
+function getAddress() {
+    if(isValidAddress()) {
+        var addressObject = {
+            street: $(".form-address input[name='street']").val(),
+            number: $(".form-address input[name='number']").val(),
+            city: $(".form-address input[name='city']").val(),
+            state: $(".form-address input[name='state']").val()
+        }
+        return JSON.stringify(addressObject)
+    }
+    return null
 }
 
 function init() {
     processDeliveryPoint()
     if ($("input[name='deliveryMethod']:checked").length > 0 && $("input[name='paymentMethod']:checked").length > 0 && isValidDeliveryPoint()) {
         processPaymentMethod();
-        $('.btn-next').removeClass('disabled');
+        // $('.btn-next').removeClass('disabled');
+        $(".form-address input").trigger("keyup"); // delete this without address
     }
 }

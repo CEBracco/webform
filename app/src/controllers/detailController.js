@@ -15,13 +15,14 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         checkOrderAndRedirectOnFail(order, res);
         // disable deliveryPoint
         order.deliveryMethod = 'shipping'
-        order.paymentMethod = 'mercadopago'
         // end
         res.render("detail", { 
-            order: order, dataIsValid: validPaymentAndDeliverData(order), 
+            order: order, 
+            dataIsValid: validPaymentAndDeliverData(order), 
             deliveryPoints: deliveryPoints, 
             getPrice: OrderUtils.getPrice,
-            getProductPrice: OrderUtils.getProductPrice 
+            getProductPrice: OrderUtils.getProductPrice,
+            addressObject: OrderUtils.getAddress(order)
         });
         res.end();
     });
@@ -43,6 +44,9 @@ function checkOrderAndRedirectOnFail(order, res) {
 }
 
 function validPaymentAndDeliverData(order) {
+    if(!OrderUtils.isValidAddress(order)){
+        return false
+    }
     if (order.deliveryMethod == 'deliveryPoint') {
         return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago')
             && (order.deliveryMethod == 'deliveryPoint' || order.deliveryMethod == 'shipping')

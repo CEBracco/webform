@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     surname: DataTypes.STRING,
     cellphone: DataTypes.STRING,
     instagramUser: DataTypes.STRING,
+    address: DataTypes.TEXT,
     paymentMethod: DataTypes.STRING,
     deliveryMethod: DataTypes.STRING,
     deliveryPoint: DataTypes.STRING,

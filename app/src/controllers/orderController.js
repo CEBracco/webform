@@ -111,7 +111,7 @@ function validCustomerInfo(data) {
 }
 
 global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
-    if (!req.body.orderId || !req.body.deliveryMethod || !req.body.paymentMethod) {
+    if (!req.body.orderId || !req.body.deliveryMethod || !req.body.paymentMethod || !req.body.address) {
         res.send(APIResponse.error());
         res.end();
     }
@@ -126,6 +126,7 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
             deliveryMethod: req.body.deliveryMethod,
             deliveryPoint: req.body.deliveryPoint,
             paymentMethod: req.body.paymentMethod,
+            address: req.body.address,
             completed: true
         }).then(updatedOrder => {
             if (sendNotification){
@@ -142,7 +143,8 @@ global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
 
 function getCompleteUrl(order, complete) {
     var paymentLink = '/order/completed';
-    if (order.deliveryMethod == 'shipping' || order.paymentMethod == 'mercadopago') {
+    // if (order.deliveryMethod == 'shipping' || order.paymentMethod == 'mercadopago') {
+    if (order.paymentMethod == 'mercadopago') {
         MercadoPagoUtils.getPaymentLink(order,complete)
     } else {
         complete(paymentLink)
