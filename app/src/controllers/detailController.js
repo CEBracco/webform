@@ -13,15 +13,13 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         ]
     }).then(order => {
         checkOrderAndRedirectOnFail(order, res);
-        // disable deliveryPoint
-        order.deliveryMethod = 'shipping'
-        // end
         res.render("detail", { 
             order: order, 
             dataIsValid: validPaymentAndDeliverData(order), 
             deliveryPoints: deliveryPoints, 
             getPrice: OrderUtils.getPrice,
             getProductPrice: OrderUtils.getProductPrice,
+            getElectronicPaymentPrice: OrderUtils.getElectronicPaymentPrice,
             addressObject: OrderUtils.getAddress(order)
         });
         res.end();
@@ -44,6 +42,9 @@ function checkOrderAndRedirectOnFail(order, res) {
 }
 
 function validPaymentAndDeliverData(order) {
+    if (order.deliveryMethod == 'takeAway') {
+        return (order.paymentMethod == 'cash' || order.paymentMethod == 'mercadopago')
+    }
     if(!OrderUtils.isValidAddress(order)){
         return false
     }

@@ -110,8 +110,15 @@ function validCustomerInfo(data) {
         && (data.cellphone != null && data.cellphone.trim() != '')
 }
 
+function isValidAddress(deliveryMethod, address) {
+    if (deliveryMethod == 'takeAway' || deliveryMethod == 'deliveryPoint') {
+        return true
+    }
+    return address != null && address != '';
+}
+
 global.server.app.post(prefix + '/setDeliveryAndPayment', function (req, res) {
-    if (!req.body.orderId || !req.body.deliveryMethod || !req.body.paymentMethod || !req.body.address) {
+    if (!req.body.orderId || !req.body.deliveryMethod || !req.body.paymentMethod || !isValidAddress(req.body.deliveryMethod, req.body.address)) {
         res.send(APIResponse.error());
         res.end();
     }

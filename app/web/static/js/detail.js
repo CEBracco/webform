@@ -17,9 +17,12 @@ $(document).ready(function () {
 
     $("input[name='deliveryMethod']").change(function () {
         processDeliveryPoint()
+        processShipping()
         if ($("input[name='paymentMethod']:checked").length > 0 && isValidDeliveryPoint()) {
             if(isValidAddress()) { //remove without address
                 $('.btn-next').removeClass('disabled');
+            } else {
+                $('.btn-next').addClass('disabled');
             }
         } else {
             $('.btn-next').addClass('disabled');
@@ -61,11 +64,11 @@ $(document).ready(function () {
 
 function processDeliveryMethod() {
     if ($("input[name='deliveryMethod']:checked").val() == 'shipping') {
-        $("input[name='paymentMethod'][value='mercadopago']").prop("checked", true);
+        // $("input[name='paymentMethod'][value='mercadopago']").prop("checked", true);
         processPaymentMethod();
-        $("input[name='paymentMethod']").prop('disabled', true);
+        // $("input[name='paymentMethod']").prop('disabled', true);
     } else {
-        $("input[name='paymentMethod']").prop('disabled', false);
+        // $("input[name='paymentMethod']").prop('disabled', false);
     }
 }
 
@@ -85,6 +88,14 @@ function processDeliveryPoint() {
     }
 }
 
+function processShipping() {
+    if ($("input[name='deliveryMethod']:checked").val() == "shipping") {
+        $(".form-address-card").removeClass('disabled-component');
+    } else {
+        $(".form-address-card").addClass('disabled-component');
+    }
+}
+
 function isValidDeliveryPoint() {
     if ($("input[name='deliveryMethod']:checked").val() == "deliveryPoint") {
         // return $("select[name='deliveryPoint']").val() && $("select[name='deliveryPoint']").val() != ""
@@ -95,6 +106,9 @@ function isValidDeliveryPoint() {
 }
 
 function isValidAddress() {
+    if ($("input[name='deliveryMethod']:checked").val() == "takeAway") {
+        return true
+    }
     var isValid = true
     $(".form-address input").each(function () {
         if (!this.checkValidity()) {

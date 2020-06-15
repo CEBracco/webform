@@ -1,3 +1,4 @@
+/* theme-color: rgb(222,109,153) */
 :root {
     --color-primary: #865569;
     --color-primary-light: #ce8da7;
@@ -301,6 +302,13 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     width: 100%;
     height: 1px;
     background-color: #eaeaea;
+}
+
+.disabled-component {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(1);
+  transition: all .2s $transitionTimingFunction;
 }
 
 /* more fancy! */

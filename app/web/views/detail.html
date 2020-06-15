@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Flor Barrau Fotografía</title>
     <link rel="shortcut icon" type="image/png" href="/img/favicon.ico" />
-    <meta name="theme-color" content="rgb(37,125,199)">
+    <meta name="theme-color" content="rgb(222,109,153)">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -96,14 +96,22 @@
                                 </div> -->
                                 <p>
                                     <label>
+                                        <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="takeAway"
+                                            onchange="processDeliveryMethod()" <% if(order && order.deliveryMethod == 'takeAway') { %> checked <% } %>>
+                                        <span>Lo paso a retirar. (Ranelagh, Berazategui)</span>
+                                    </label>
+                                </p>
+
+                                <p>
+                                    <label>
                                         <input class="with-gap primary-color" name="deliveryMethod" type="radio" value="shipping" onchange="processDeliveryMethod()"
                                         <% if(order && order.deliveryMethod == 'shipping') { %> checked <% } %>>
                                         <!-- <span>Envío a través de MercadoEnvíos</span> -->
                                         <!-- COVID Motorbike -->
-                                        <span>Envío a domicilio</span>
+                                        <span>Quiero que lo envíen a mi domicilio.</span>
                                     </label>
                                 </p>
-                                <div class="card card-well">
+                                <div class="card card-well form-address-card <% if(order && order.deliveryMethod != 'shipping') { %> disabled-component <% } %>">
                                     <div class="card-content padding-top-10 padding-bottom-10 form-address">
                                         <div class="row margin-bottom-0">
                                             <div class="input-field col s12 m6 margin-top-0">
@@ -147,7 +155,7 @@
                                     <label>
                                         <input class="with-gap primary-color" name="paymentMethod" type="radio" value="mercadopago" onchange="processPaymentMethod()"
                                         <% if(order && order.paymentMethod == 'mercadopago') { %> checked <% } %>>
-                                        <span>Tarjetas de crédito / Debito / Rapipago / Pago Fácil (MercadoPago)</span>
+                                        <span>Tarjetas de crédito / Debito / Rapipago / Pago Fácil (MercadoPago) <span class='required'>Recargo del 5% por gastos del servicio (Total del pedido $<%= getElectronicPaymentPrice(order) %>)</span></span>
                                     </label>
                                 </p>
                             </div>
@@ -197,8 +205,8 @@
                 <tbody>
                     <tr>
                         <td>Berazategui Centro</td>
+                        <td>$100</td>
                         <td>$130</td>
-                        <td>$165</td>
                     </tr>
                     <tr>
                         <td>Ranelagh</td>
@@ -224,6 +232,16 @@
                         <td>Gutiérrez</td>
                         <td>$180</td>
                         <td>$270</td>
+                    </tr>
+                    <tr>
+                        <td>Ezpeleta Centro</td>
+                        <td>$200</td>
+                        <td>$300</td>
+                    </tr>
+                    <tr>
+                        <td>Ezpeleta Oeste</td>
+                        <td>$200</td>
+                        <td>$300</td>
                     </tr>
                     <tr>
                         <td>Quilmes Centro</td>

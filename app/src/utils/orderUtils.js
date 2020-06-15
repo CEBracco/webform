@@ -13,8 +13,9 @@ function getPrice(order) {
     return getProductPrice(order.Product) + order.Background.price + order.Text.Typography.price;
 }
 
-function getElectronicPaymentPrice(order, electronicPayment) {
-    return getProductPrice(order.Product) + order.Background.price + order.Text.Typography.price;
+function getElectronicPaymentPrice(order, electronicPayment = null) {
+    let commision = 5;
+    return getPrice(order) + Math.floor((getPrice(order) * commision) / 100);
 }
 
 function getProductPrice(product) {
