@@ -34,7 +34,18 @@ function getClientName(order) {
 }
 
 function getTranslatedDeliveryMethod(order) {
-    var deliveryMethod = order.deliveryMethod == 'shipping' ? 'Envío' : 'Punto de Entrega'
+    var deliveryMethod = ''
+    switch (order.deliveryMethod) {
+        case 'shipping':
+            deliveryMethod = 'Envío'
+            break;
+        case 'takeAway':
+            deliveryMethod = 'Retiro a domicilio'
+            break;
+        default:
+            deliveryMethod = 'Punto de Entrega'
+            break;
+    }
     if(order.deliveryMethod == 'deliveryPoint' && order.deliveryPoint && order.deliveryPoint != '') {
         return `${deliveryMethod} (${order.deliveryPoint})`
     } else {

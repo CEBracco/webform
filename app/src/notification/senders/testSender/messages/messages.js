@@ -32,6 +32,8 @@ function translateDeliveryMethod(key, deliveryPoint) {
   switch (key) {
     case 'shipping':
       return 'Envío'
+    case 'takeAway':
+      return 'Retiro a domicilio'
     case 'deliveryPoint':
       return 'Punto de Entrega' + deliveryPointDetail
     default:
