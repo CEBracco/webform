@@ -6,7 +6,10 @@ global.server.app.get(['/background/:orderId'], function (req, res) {
         if (!order) {
             res.redirect('/');
         }
-        db.Variation.findAll({ where: { type: 'background' } }).then(backgrounds => {
+        db.Variation.findAll({ 
+            where: { type: 'background' },
+            order: [['name']] 
+        }).then(backgrounds => {
             res.render("background", { backgrounds: backgrounds, order: order });
             res.end();
         })
