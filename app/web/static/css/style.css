@@ -206,6 +206,9 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     background-repeat: no-repeat;
     background-position: center;
 }
+.card > .image-container.background-cover {
+    background-size: cover;
+}
 
 .card.selected {
     border: 2px solid var(--color-primary);
@@ -308,7 +311,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
   opacity: 0.5;
   pointer-events: none;
   filter: grayscale(1);
-  transition: all .2s $transitionTimingFunction;
+  transition: all .2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 /* more fancy! */
