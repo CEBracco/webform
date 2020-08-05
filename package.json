@@ -19,7 +19,7 @@
     "dotenv-cli": "^2.0.1",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.5",
+    "express-fileupload": "^1.1.9",
     "express-force-https": "^1.0.0",
     "fs-extra": "^8.1.0",
     "hashids": "^1.2.2",
