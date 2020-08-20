@@ -203,6 +203,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- 
                     <tr>
                         <td>Berazategui Centro</td>
                         <td>$100</td>
@@ -252,7 +253,15 @@
                         <td>Quilmes Oeste</td>
                         <td>$250</td>
                         <td>$375</td>
+                    </tr> 
+                    -->
+                    <% shipmentPrices.forEach(shipmentPrice => { %>
+                    <tr>
+                        <td><%= shipmentPrice.city %></td>
+                        <td>$<%= shipmentPrice.price %></td>
+                        <td>$<%= shipmentPrice.backShipmentPrice %></td>
                     </tr>
+                    <% }); %>
                 </tbody>
             </table>
         </div>

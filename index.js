@@ -3,6 +3,7 @@ global.server = require('@appSrc/server/server');
 
 function connectToDB() {
     global.db = require('@appSrc/db/config/db');
+    global.configurationCache = require('@localModules/config/initializers/configurationCache');
 }
 
 function loadControllers() {
@@ -19,6 +20,7 @@ function loadControllers() {
     require('@appSrc/controllers/ordersListController');
     require('@appSrc/controllers/mercadoPagoController');
     require('@appSrc/controllers/adminProductsController');
+    require('@appSrc/controllers/configurationController');
 }
 
 function loadNotificationBroker() {

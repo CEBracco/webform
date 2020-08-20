@@ -1,5 +1,6 @@
 configRepository = process.env.CONFIG_REPOSITORY ? process.env.CONFIG_REPOSITORY : 'env';
 repository = require(`./repository/${configRepository}Repository.js`);
+databaseRepository = null
 
 class Config {
 
@@ -19,6 +20,11 @@ class Config {
     } catch (error) {
       return null;
     }
+  }
+
+  get db() {
+    if (!databaseRepository) databaseRepository = require(`./repository/databaseRepository.js`);
+    return databaseRepository;
   }
 }
 

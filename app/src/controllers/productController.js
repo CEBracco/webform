@@ -3,7 +3,7 @@ var config = require('@localModules/config/Config.js');
 var OrderUtils = require('@appSrc/utils/orderUtils');
 
 global.server.app.get(['/:orderId?', '/index.html/:orderId?'], function (req, res) {
-    var siteDisabledParams = config.getObject('SITE_DISABLED');
+    var siteDisabledParams = config.db.getObject('SITE_DISABLED');
     if (!isSiteDisabled(siteDisabledParams)) {
         var orderId = req.params.orderId;
         if (!orderId) {

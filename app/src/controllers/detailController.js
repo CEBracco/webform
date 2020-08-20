@@ -1,5 +1,6 @@
 const db = global.db;
 var OrderUtils = require('@appSrc/utils/orderUtils');
+var config = require('@localModules/config/Config.js');
 const deliveryPoints = ['Plaza Constitución', 'Quilmes', 'Berazategui', 'Ranelagh', 'La Plata']
 
 global.server.app.get(['/detail/:orderId'], function (req, res) {
@@ -16,7 +17,8 @@ global.server.app.get(['/detail/:orderId'], function (req, res) {
         res.render("detail", { 
             order: order, 
             dataIsValid: validPaymentAndDeliverData(order), 
-            deliveryPoints: deliveryPoints, 
+            deliveryPoints: deliveryPoints,
+            shipmentPrices: config.db.get('SHIPMENT_PRICES').prices,
             getPrice: OrderUtils.getPrice,
             getProductPrice: OrderUtils.getProductPrice,
             getElectronicPaymentPrice: OrderUtils.getElectronicPaymentPrice,
