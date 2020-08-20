@@ -3,8 +3,6 @@ const logger = require('@localModules/logger/Logger.js');
 
 class ConfigurationCache {
 
-    cache = null;
-
     constructor() {
         this.refresh()
     }
