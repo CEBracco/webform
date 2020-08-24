@@ -266,6 +266,21 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     }
 }
 
+.sample-image-horizontal {
+    width: 60vw;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+@media screen and (min-width: 600px) {
+    .sample-image-horizontal {
+        width: 40vw;
+    }
+}
+@media screen and (min-width: 992px) {
+    .sample-image-horizontal {
+        width: 35vw;
+    }
+}
 
 /* helpers */
 .margin-top-0 {

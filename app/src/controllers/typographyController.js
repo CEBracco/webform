@@ -8,7 +8,7 @@ global.server.app.get(['/typography/:orderId'], function (req, res) {
         if (!order) {
             res.redirect('/');
         }
-        db.Variation.findAll({ where: {type: 'typography'}})
+        db.Variation.findAll({ where: { type: 'typography' }, order: [['index', 'ASC'], ['id']] })
         .then(typographies => {
             res.render("typography", { typographies: typographies, order: order, isValid: isValid(order) });
             res.end();

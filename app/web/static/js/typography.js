@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     $("input[name='typography']").change(function () {
         skipTextValidation = $(this).closest('.selectable-item').hasClass('none');
+        processIfIsCode($(this).closest('.selectable-item').hasClass('code'))
         if (textIsValid()) {
             $('.btn-next').removeClass('disabled');
         } else {
@@ -32,5 +33,23 @@ $(document).ready(function () {
 });
 
 function textIsValid() {
-    return ($('#photoText').val() && $('#photoText').val().trim() != '' && $('#photoText').val().length <= 30) || skipTextValidation; 
+    return ($('#photoText').val() && $('#photoText').val().trim() != '' && $('#photoText').val().length <= textLength) || skipTextValidation; 
+}
+
+function processIfIsCode(isCode) {
+    var newtextLength = 30;
+    if(isCode) {
+        newtextLength = 240;
+        $('.code-message').removeClass('hide');
+        $('.text-message').addClass('hide');
+    } else {
+        $('.text-message').removeClass('hide');
+        $('.code-message').addClass('hide');
+    }
+    if (textLength != newtextLength) {
+        textLength = newtextLength;
+        $('#photoText').attr('data-length', textLength);
+        $('#photoText').attr('maxlength', textLength);
+        $('#photoText').characterCounter();
+    }
 }

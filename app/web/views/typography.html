@@ -13,6 +13,9 @@
     <link href="/lib/pace/pace-theme.css" rel="stylesheet" />
 </head>
 <body>
+    <%
+        var textLength = (order && order.Text && order.Text.Typography.name.includes('QR')) ? 240 : 30;
+    %>
     <div class="background-header"></div>
     <div class="content">
         <div class="row">
@@ -22,17 +25,17 @@
                         <h4>Nuevo Pedido</h4>
                         <p class='required'>*Obligatorio</p>
                         <br>
-                        <h5>Agrega texto!</h5>
-                        <p>Podes agregar un texto personalizado y seleccionar la tipografía que quieras que aparezca en el pie de tus fotos</p>
-                        <p><b>(+$30 al total del pedido)</b></p>
+                        <h5>Agrega un pie de foto!</h5>
+                        <p>Podes agregar un texto personalizado y seleccionar la tipografía o incluir un codigo QR para que aparezca en el pie de tus fotos.</p>
+                        <p><b>El precio expresado es por pedido y no por foto 😉</b></p>
                         <div class="center-align">
-                            <img src="/img/typography_sample.jpg" class="sample-image">
+                            <img src="/img/typography_sample2.jpg" class="sample-image-horizontal">
                         </div>
-                        <h6>Seleccioná la tipografía <span class="required">*</span></h6>
+                        <h6>Seleccioná la tipografía o código QR <span class="required">*</span></h6>
                         <div class="row">
                             <% typographies.forEach(function(typography, typographyIndex){ %>
                             <div class="col s6 m4 l3">
-                                <div class="selectable-item <%= typography.price <= 0 ? 'none' : '' %>">
+                                <div class="selectable-item fix-height <%= typography.price <= 0 ? 'none' : '' %> <%= typography.name.includes('QR') ? 'code' : '' %>">
                                     <div class="card <% if(order && order.Text && order.Text.TypographyId == typography.id ) { %>selected<% } %>">
                                         <div class="image-container"
                                             style="background-image: url('<%= typography.image %>')"></div>
@@ -41,7 +44,7 @@
                                         <label>
                                             <input class="with-gap primary-color" name="typography" type="radio" value="<%= typography.id %>" 
                                             <% if(order && order.Text && order.Text.TypographyId == typography.id ) { %> checked <% } %> />
-                                            <span><%= typography.name %></span>
+                                            <span><%= typography.name %> <% if(typography.price > 0){ %>- <span>$<%= typography.price %></span><% } %></span>
                                         </label>
                                     </p>
                                 </div>
@@ -49,10 +52,16 @@
                             <% }); %>
                         </div>
                         <div class="row">
-                            <h6 class="col s12">Tu texto</h6>
-                            <p class="col s12">El texto que se va a mostrar en las fotos (máximo 30 caracteres)</p>
-                            <div class="input-field col s12 m6">
-                                <input placeholder="Texto" id="photoText" type="text" class="validate" data-length="30" maxlength="30"
+                            <div class="col s12 text-message <%= (order && order.Text && order.Text.Typography.name.includes('QR')) ? 'hide' : '' %>">
+                                <h6>Tu texto</h6>
+                                <p>El texto que se va a mostrar en las fotos (máximo 30 caracteres)</p>
+                            </div>
+                            <div class="col s12 code-message <%= (order && order.Text && order.Text.Typography.name.includes('QR')) ? '' : 'hide' %>">
+                                <h6>Tu enlace o texto</h6>
+                                <p>Acá completá con el enlace del video, canción o mensaje secreto para que puedas ver al escanearlo</p>
+                            </div>
+                            <div class="input-field col s12 m8">
+                                <input placeholder="Texto" id="photoText" type="text" class="validate" data-length="<%= textLength %>" maxlength="<%= textLength %>"
                                 <% if(order && order.Text && order.Text.value ) { %>value="<%= order.Text.value %>"<% } %>>
                                 <label for="photoText">Tu texto</label>
                             </div>
@@ -76,10 +85,12 @@
 <% if (order) { %> 
 <script>
     var orderId = "<%= order.hash %>";
+    var textLength = <%= textLength %>;
 </script>
 <% } else { %>
 <script>
     var orderId = 'default';
+    var textLength = 30;
 </script>
 <% } %>
 <script src="/js/typography.js"></script>
