@@ -31,7 +31,8 @@ function loadUtils() {
 }
 
 var cluster = require('cluster');
-var cCPUs = require('os').cpus().length;
+// var cCPUs = require('os').cpus().length;
+var cCPUs = 2;
 if (cluster.isMaster) {
     // Create a worker for each CPU
     for (var i = 0; i < cCPUs; i++) {
