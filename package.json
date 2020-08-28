@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --require dotenv/config index.js",
+    "start:sclustered": "node --require dotenv/config indexClustered.js",
     "test": "nodemon --require dotenv/config index.js",
     "db:create": "npx dotenv sequelize db:create",
     "db:drop": "npx dotenv sequelize db:drop",

@@ -134,7 +134,7 @@ function generateThumbnail(orderId, filename, dataUrl) {
             var fs = require('fs');
             var ext = matches[1];
             var data = matches[2];
-            var buffer = new Buffer(data, 'base64');
+            var buffer = Buffer.from(data, 'base64');
             fs.writeFileSync(path.join(thumbnailsDirPath, filename), buffer);
         });
     }
