@@ -21,6 +21,7 @@ function loadControllers() {
     require('@appSrc/controllers/mercadoPagoController');
     require('@appSrc/controllers/adminProductsController');
     require('@appSrc/controllers/configurationController');
+    require('@appSrc/controllers/labController');
 }
 
 function loadNotificationBroker() {
