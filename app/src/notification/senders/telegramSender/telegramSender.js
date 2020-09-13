@@ -5,6 +5,11 @@ function sendNewOrderNotification(order){
   telegramUtils.broadcastMessage(messages.newOrderNotification(order));
 }
 
+function sendLabDownloadNotification(downloadLink) {
+  telegramUtils.broadcastMessage(messages.labDownloadNotification(downloadLink));
+}
+
 module.exports = {
-  sendNewOrderNotification: sendNewOrderNotification
+  sendNewOrderNotification: sendNewOrderNotification,
+  sendLabDownloadNotification: sendLabDownloadNotification
 }

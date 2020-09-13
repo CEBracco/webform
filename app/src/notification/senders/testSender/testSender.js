@@ -11,6 +11,15 @@ function sendNewOrderNotification(order) {
     }
 }
 
+function sendLabDownloadNotification(downloadLink) {
+    var logMessages = config.getBoolean('TEST_SENDER_LOG_NOTIFICATIONS');
+    logger.debug("NOTIFICATION: The Lab download an order!");
+    if (logMessages) {
+        logger.debug(messages.labDownloadNotification(downloadLink))
+    }
+}
+
 module.exports = {
-    sendNewOrderNotification: sendNewOrderNotification
+    sendNewOrderNotification: sendNewOrderNotification,
+    sendLabDownloadNotification: sendLabDownloadNotification
 }

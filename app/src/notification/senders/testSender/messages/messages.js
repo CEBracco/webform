@@ -52,6 +52,15 @@ function translatePaymentMethod(key) {
   }
 }
 
+function labDownloadNotification(downloadLink) {
+  return `<b>El laboratorio descargó el pedido!</b> 📸
+
+Ya descargaron el pedido y estan trabajando para imprimir las fotos enviadas, podés ver las fotos descargadas entrando en el siguiente enlace:
+
+<a href="${downloadLink}" >👉🏻 Ver fotos</a>`;
+}
+
 module.exports = {
-  newOrderNotification: newOrderNotification
+  newOrderNotification: newOrderNotification,
+  labDownloadNotification: labDownloadNotification
 }

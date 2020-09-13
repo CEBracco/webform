@@ -15,6 +15,14 @@ function sendNewOrderNotification(order){
   }
 }
 
+function sendLabDownloadNotification(downloadLink) {
+  logger.debug('Sending Lab Download notifications!');
+  for (sender of senders) {
+    sender.sendLabDownloadNotification(downloadLink);
+  }
+}
+
 module.exports = {
-  sendNewOrderNotification: sendNewOrderNotification
+  sendNewOrderNotification: sendNewOrderNotification,
+  sendLabDownloadNotification: sendLabDownloadNotification
 }
