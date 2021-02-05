@@ -9,7 +9,8 @@
     "test": "nodemon --require dotenv/config index.js",
     "db:create": "npx dotenv sequelize db:create",
     "db:drop": "npx dotenv sequelize db:drop",
-    "db:migrate": "npx dotenv sequelize db:migrate"
+    "db:migrate": "npx dotenv sequelize db:migrate",
+    "db:migrate:undo": "npx dotenv sequelize db:migrate:undo"
   },
   "author": "cbracco",
   "license": "ISC",

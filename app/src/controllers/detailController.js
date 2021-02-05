@@ -35,11 +35,13 @@ function checkOrderAndRedirectOnFail(order, res) {
     if (!order.Product) { // ultra rare
         res.redirect(`/`);
     }
-    if (!order.Text) {
-        res.redirect(`/typography/${order.hash}`);
-    }
-    if (!order.Background) {
-        res.redirect(`/background/${order.hash}`);
+    if (order.Product.acceptedPhotos > 0) {
+        if (!order.Text) {
+            res.redirect(`/typography/${order.hash}`);
+        }
+        if (!order.Background) {
+            res.redirect(`/background/${order.hash}`);
+        }
     }
 }
 

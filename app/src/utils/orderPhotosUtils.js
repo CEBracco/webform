@@ -22,11 +22,15 @@ function cleanTempPhotos(orderId) {
     fs.remove(orderTempPhotoDir);
 
     //iterates over array and remove thumbnail if photo not exists
-    fs.readdirSync(orderThumbsPhotoDir).forEach(thumbnail => {
-        if(!photos.includes(thumbnail)){
-            fs.remove(path.join(orderThumbsPhotoDir, thumbnail));
+    fs.pathExists(orderThumbsPhotoDir).then(exists => {
+        if (exists) {
+            fs.readdirSync(orderThumbsPhotoDir).forEach(thumbnail => {
+                if(!photos.includes(thumbnail)){
+                    fs.remove(path.join(orderThumbsPhotoDir, thumbnail));
+                }
+            });
         }
-    });
+    })
 }
 
 module.exports = {
