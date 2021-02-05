@@ -15,7 +15,7 @@
   "author": "cbracco",
   "license": "ISC",
   "dependencies": {
-    "bestzip": "^2.1.5",
+    "bestzip": "^2.1.7",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "dotenv-cli": "^2.0.1",
