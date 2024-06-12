@@ -1,11 +1,18 @@
 /* theme-color: rgb(245, 190, 126) */
 
 :root {
+    --color-primary: #4d2f6b;
+    --color-primary-light: #4d2f6b;
+    --color-primary-accent: #9770af;
+    --color-primary-grey: #f1efc0;
+}
+
+/* :root {
     --color-primary: #b71c1c;
     --color-primary-light: #e57373;
     --color-primary-accent: #e57373;
     --color-primary-grey: #f1efc0;
-}
+} */
 
 /* spring thene */
 /* theme-color: rgb(222, 215, 109) */
@@ -54,7 +61,7 @@ html, body {
 .background-header {
     height: 35vh;
     width: 100%;
-    background-image: url("/img/banner-9.jpg");
+    background-image: url("/img/banner-10.jpg");
     background-size: cover;
     background-position: center;
     position: absolute;
