@@ -12,7 +12,7 @@ global.server.app.get(['/:orderId?', '/index.html/:orderId?'], function (req, re
         db.Product.findAll({ 
             where: { enabled: true }, 
             include: [db.Group], 
-            order: [[db.Group, 'order'], ['price']] 
+            order: [[db.Group, 'order'], ['price', 'name']] 
         }).then(products => {
             db.Order.findOne({ where: { hash: orderId } }).then(order => {
                 res.render("product", { products: products, order: order, priceFunction: OrderUtils.getProductPrice });
