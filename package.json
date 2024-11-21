@@ -43,6 +43,6 @@
     "modules"
   ],
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.20"
   }
 }
